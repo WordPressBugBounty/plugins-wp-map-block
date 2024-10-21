@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Plugin Name: WP Map Block
+ * Plugin Name: WP Map Block by aBlocks
  * Plugin URI: https://academylms.net/wp-map-block
  * Description: Gutenberg Map Block for Google Map and OpenStreet Map build with LeafletJS
- * Author: Academy LMS
- * Author URI: https://academylms.net/
- * Version: 1.4.10
+ * Author: aBlocks - Most Powerful blocks Library
+ * Author URI: https://ablocks.pro/
+ * Version: 2.0.0
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  *
@@ -36,7 +36,7 @@ if (!class_exists('WPMapBlock')) {
             /**
              * Defines CONSTANTS for Whole plugins.
              */
-            define('WPMAPBLOCK_VERSION', '1.4.10');
+            define('WPMAPBLOCK_VERSION', '2.0.0');
             define('WPMAPBLOCK_PLUGIN_FILE', __FILE__);
             define('WPMAPBLOCK_PLUGIN_BASENAME', plugin_basename(__FILE__));
             define('WPMAPBLOCK_PLUGIN_SLUG', 'wp-map-block');

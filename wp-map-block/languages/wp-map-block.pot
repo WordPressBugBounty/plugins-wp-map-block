@@ -1,192 +1,84 @@
-# Copyright (C) 2024 Academy LMS
+# Copyright (C) 2024 aBlocks - Most Powerful blocks Library
 # This file is distributed under the GPL2+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Map Block 1.4.9\n"
+"Project-Id-Version: WP Map Block by aBlocks 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-map-block\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-03T05:07:06+00:00\n"
+"POT-Creation-Date: 2024-10-20T13:22:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: wp-map-block\n"
 
 #. Plugin Name of the plugin
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "WP Map Block"
+#: wp-map-block.php
+msgid "WP Map Block by aBlocks"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: wp-map-block.php
 msgid "https://academylms.net/wp-map-block"
 msgstr ""
 
 #. Description of the plugin
+#: wp-map-block.php
 msgid "Gutenberg Map Block for Google Map and OpenStreet Map build with LeafletJS"
 msgstr ""
 
 #. Author of the plugin
-msgid "Academy LMS"
+#: wp-map-block.php
+msgid "aBlocks - Most Powerful blocks Library"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://academylms.net/"
+#: wp-map-block.php
+msgid "https://ablocks.pro/"
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Location Search..."
+#: includes/Admin.php:21
+msgid "Docs"
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Draggable Marker, Your can easily change your marker position by Dragging"
+#: includes/Admin.php:22
+msgid "View WP Map Block documentation"
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Latitude"
+#: includes/Admin.php:26
+msgid "Community Support"
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "longitude"
+#: includes/Admin.php:27
+msgid "Visit community forums"
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Title"
+#: includes/Admin.php:31
+msgid "Rate the plugin ★★★★★"
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Content"
+#: includes/Admin.php:32
+msgid "Rate the plugin."
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "HTML Supported"
+#: includes/Admin.php:63
+msgid "Are you building your site with Gutenberg?"
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Advanced Settings"
+#: includes/Admin.php:65
+msgid "aBlocks got you covered. Supercharge your site with aBlocks—the ultimate page builder. With 30+ blocks, you can create stunning websites quickly and effortlessly."
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Set As Default Position"
+#: includes/Admin.php:66
+msgid "Learn More:"
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Choose Icon Type"
+#: includes/Admin.php:70
+msgid "Install aBlocks Now"
 msgstr ""
 
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Default Icon"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Custom Icon"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Icon Width"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Icon Height"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Icon"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Upload Icon"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Replace Icon"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Remove Icon"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Our Latest Product"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Save & Close"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Map Settings"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Width (%)"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Height (px)"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Choose Map"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Google Map"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Open Street map"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Zoom Level"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Enable Scroll Wheel Zoom"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Map Marker"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Marker"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Edit"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "+ Add Marker"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "Map solution by Academy LMS"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "map"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "google map"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "openstreet map"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "map block"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "api"
-msgstr ""
-
-#: assets/dist/wpmapblock.core.min.js:1
-msgid "maps"
+#: includes/Admin.php:73
+msgid "Hide Notice"
 msgstr ""

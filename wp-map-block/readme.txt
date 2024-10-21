@@ -1,17 +1,45 @@
-=== WP Map Block - Gutenberg Map Block for Google Map and OpenStreet Map ===
+=== WP Map Block - Gutenberg Map Block for Google Map and OpenStreet Map by aBlocks ===
 Contributors: tusharimran, academylms
 Donate link: https://www.buymeacoffee.com/academylms
-Tags: block, map block, google maps, openstreet map, gutenberg, leaflet, gutenberg block, gutenberg editor, google maps for gutenberg, maps for gutenberg, gutenberg maps
+Tags: block, map block, google maps, ablocks, gutenberg,
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 5.6
-Stable tag: 1.4.10
+Stable tag: 2.0.0
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
 No API key is required to launch Google Maps & OpenStreetMap.
 
 == Description ==
+
+**Important Announcement:** The WP Map Block plugin has officially merged with **aBlocks**. It’s an innovative and comprehensive Gutenberg blocks builder for WordPress. Now, you can enjoy enhanced mapping options alongside a wide range of customizable blocks. All within a single, powerful plugin aBlocks.
+
+==Why Switch to aBlocks?==
+As a valued WP Map Block user, you’ll benefit from this upgrade in several ways:
+
+Enhanced Mapping Features: Experience all the functionalities you loved in WP Map Block. The interactive maps with Google Maps and OpenStreetMap are now integrated into the powerful aBlocks framework.
+More Customization Options: With aBlocks, you have the access to an extensive library of blocks that allow you to create stunning layouts and designs beyond just maps. You can create a complete website with advanced customization options.
+User-Friendly Interface: The intuitive Gutenberg editor in aBlocks makes it easier than ever to add and customize maps and other blocks without any coding knowledge.
+Responsive Design: Ensure your maps and content look great on any device with built-in responsive settings.
+
+**Key Features of aBlocks:**
+
+Customizable Blocks: Explore various blocks designed for different content types, including container, headings, text & color customization and even more.
+Interactive Maps: Easily embed Google Maps or OpenStreetMap with customizable options and animations that enhance user engagement.
+Performance Optimized: Enjoy fast load times and smooth operation with aBlocks lightweight design.
+
+== Transferring from WP Map Block to aBlocks ==
+
+If you were using WP Map Block, you can transfer to aBlocks uninterrupted. Simply install the aBlocks plugin from the WordPress directory. You’ll see a button “Convert to Map Block” in the section where you used the WP Map Block. Simply click it and all your existing map configurations will be automatically transferred. You’ll retain your map settings while gaining access to new and advanced customization options.
+
+
+You can use the map block the same way you've used it before for Google Maps and OpenStreetMap.
+
+The new Map Block offers a simple user interface that allows you to add Google Maps and OpenStreetMap to your WordPress site. This plugin is built with LeafletJS, an open-source JavaScript library for mobile-friendly interactive maps. This straightforward Map option for your website with advanced settings of aBlocks.
+
+It is the ideal solution for you if you’re using the Gutenberg editor and require a map on your site. Using aBlocks, you can easily customize Google Maps or OpenStreetMap for Gutenberg-supported posts, pages, or custom post types for your WordPress site.
+
 
 **Most Convenient Way to utilize Gutenberg Map block for Google Maps & OpenStreet Maps.**
 
@@ -71,11 +99,12 @@ If you like WP-Map-Block, then consider checking out our other WordPress Plugins
 🔝 [Academy LMS](https://academylms.net) –  WordPress Learning Management System, eLearning Platform, Online Education System & Online Course Builder
 
 
-## 💙 Loved WP-Map-Block? ##
+## 💙 Join the aBlocks Community ##
+Don’t miss out on the opportunity to elevate your WordPress site with aBlocks. Experience enhanced mapping capabilities along with a suite of powerful design tools. Install aBlocks today and unlock the full potential of your website!
 
-- Like on our [Facebook Page](https://www.facebook.com/academylmsteam)
-- Join our [Facebook Group](https://www.facebook.com/groups/academylmsteam)
-- Or rate us on [WordPress](https://wordpress.org/support/plugin/wp-map-block/reviews/?rate=5#new-post)
+- Like on our [aBlocks Website](https://ablocks.pro/)
+- Join our [aBlocks Facebook Page](https://www.facebook.com/profile.php?id=61560040810557)
+- Join our [aBlocks Community Group](https://www.facebook.com/groups/386840187678401/)
 
 
 == Frequently Asked Questions ==
@@ -113,6 +142,9 @@ Change the way you are writing the address or make it more specific. Make sure t
 
 
 == Changelog ==
+
+= 2.0.0 – 2024-05-22 =
+- Added: aBlocks Compatibility
 
 = 1.4.10 – 2024-05-22 =
 - Added: WP 6.5 Compatibility
