@@ -13,7 +13,7 @@ No API key is required to launch Google Maps & OpenStreetMap.
 
 == Description ==
 
-**Important Announcement:** The WP Map Block plugin has officially merged with **aBlocks**. It’s an innovative and comprehensive Gutenberg blocks builder for WordPress. Now, you can enjoy enhanced mapping options alongside a wide range of customizable blocks. All within a single, powerful plugin aBlocks.
+**Important Announcement:** The WP Map Block plugin has officially merged with **[aBlocks](https://wordpress.org/plugins/ablocks)**. It’s an innovative and comprehensive Gutenberg blocks builder for WordPress. Now, you can enjoy enhanced mapping options alongside a wide range of customizable blocks. All within a single, powerful plugin aBlocks. [Here's how to Migrate WP Map Block to aBlocks!](https://academylms.net/how-to-use-wp-map-block/)
 
 ==Why Switch to aBlocks?==
 As a valued WP Map Block user, you’ll benefit from this upgrade in several ways:
