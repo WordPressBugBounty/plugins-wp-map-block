@@ -62,7 +62,7 @@ class Admin
 				<div class="wpmapblock-to-ablocks-notice__entry-right">
 					<h4><?php esc_html_e('Are you building your site with Gutenberg?', 'wp-map-block'); ?></h4>
 					<p>
-						<?php esc_html_e( 'aBlocks got you covered. Supercharge your site with aBlocks—the ultimate page builder. With 30+ blocks, you can create stunning websites quickly and effortlessly.', 'wp-map-block' ); ?>
+						<?php esc_html_e( 'aBlocks got you covered. Supercharge your site with aBlocks—the ultimate page builder. With 60+ blocks, you can create stunning websites quickly and effortlessly.', 'wp-map-block' ); ?>
 						<?php esc_html_e('Learn More:', 'wp-map-block'); ?> <a href="https://ablocks.pro/">ablocks.pro</a>
 					</p>
 					<p>

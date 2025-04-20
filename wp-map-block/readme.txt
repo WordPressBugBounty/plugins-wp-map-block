@@ -2,10 +2,10 @@
 Contributors: tusharimran, academylms
 Donate link: https://www.buymeacoffee.com/academylms
 Tags: block, map block, google maps, ablocks, gutenberg,
-Requires at least: 6.0
-Tested up to: 6.5
-Requires PHP: 5.6
-Stable tag: 2.0.0
+Requires at least: 6.5
+Tested up to: 6.8
+Requires PHP: 7.4
+Stable tag: 2.0.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -96,7 +96,9 @@ Install WP Map Block for Gutenberg either via the WordPress plugin directory or 
 ## 🔥 WHAT’S NEXT
 If you like WP-Map-Block, then consider checking out our other WordPress Plugins for FREE:
 
-🔝 [Academy LMS](https://academylms.net) –  WordPress Learning Management System, eLearning Platform, Online Education System & Online Course Builder
+🔝 [Academy LMS](https://academylms.net) – Academy LMS is a modern, lightweight LMS plugin for WordPress. It helps users create and sell online courses, manage instructors, track student progress, quizzes, and more — all inside WordPress.
+🔝 [aBlocks](https://ablocks.pro) – aBlocks is a powerful Gutenberg-based WordPress website builder and a clean alternative to Elementor. It provides custom blocks and design flexibility while keeping your website fast and bloat-free.
+🔝 [StoreEngine](https://storeengine.pro) – StoreEngine is an all-in-one, next-gen eCommerce plugin for WordPress. It’s designed to make selling digital products, courses, memberships, and even physical goods easier than ever.
 
 
 ## 💙 Join the aBlocks Community ##

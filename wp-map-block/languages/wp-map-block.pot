@@ -68,7 +68,7 @@ msgid "Are you building your site with Gutenberg?"
 msgstr ""
 
 #: includes/Admin.php:65
-msgid "aBlocks got you covered. Supercharge your site with aBlocks—the ultimate page builder. With 30+ blocks, you can create stunning websites quickly and effortlessly."
+msgid "aBlocks got you covered. Supercharge your site with aBlocks—the ultimate page builder. With 60+ blocks, you can create stunning websites quickly and effortlessly."
 msgstr ""
 
 #: includes/Admin.php:66
