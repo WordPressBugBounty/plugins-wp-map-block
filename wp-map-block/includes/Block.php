@@ -26,7 +26,7 @@ class Block
             if (is_array($value)) {
                 $value = self::escaping_array_data($value);
             } else {
-                $value = esc_attr($value);
+                $value = esc_attr(wp_kses_post($value));
             }
         }
         return $array;

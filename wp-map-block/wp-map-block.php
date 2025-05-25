@@ -6,7 +6,7 @@
  * Description: Gutenberg Map Block for Google Map and OpenStreet Map build with LeafletJS
  * Author: aBlocks - Most Powerful blocks Library
  * Author URI: https://ablocks.pro/
- * Version: 2.0.1
+ * Version: 2.0.2
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: wp-map-block
@@ -37,7 +37,7 @@ if (!class_exists('WPMapBlock')) {
             /**
              * Defines CONSTANTS for Whole plugins.
              */
-            define('WPMAPBLOCK_VERSION', '2.0.1');
+            define('WPMAPBLOCK_VERSION', '2.0.2');
             define('WPMAPBLOCK_PLUGIN_FILE', __FILE__);
             define('WPMAPBLOCK_PLUGIN_BASENAME', plugin_basename(__FILE__));
             define('WPMAPBLOCK_PLUGIN_SLUG', 'wp-map-block');

@@ -5,7 +5,7 @@ Tags: block, map block, google maps, ablocks, gutenberg,
 Requires at least: 6.5
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -144,6 +144,12 @@ Change the way you are writing the address or make it more specific. Make sure t
 
 
 == Changelog ==
+
+= 2.0.2 – 2024-05-25 =
+- Fixed: Security Issue
+
+= 2.0.1 – 2024-04-01 =
+- Added: WP 6.8 Compatibility
 
 = 2.0.0 – 2024-05-22 =
 - Added: aBlocks Compatibility

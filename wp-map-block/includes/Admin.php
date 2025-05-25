@@ -8,6 +8,7 @@ class Admin
 		add_filter( 'plugin_row_meta', array( $self, 'add_plugin_links' ), 10, 2 );
 		add_action( 'admin_notices', array($self, 'ablocks_install_notice') );
 		add_action( 'admin_init', [ $self, 'ablocks_hide_notice' ] );
+		$self->dispatch_insights();
 	}
 
 	public function add_plugin_links($links, $file){
@@ -147,5 +148,40 @@ class Admin
 		if ( isset( $_GET['ablocks-hide-notice-by-wpmapblock'] ) ) {
 			update_option( 'wpmapblock_ablocks_install_notice_hidden', true, false );
 		}
+	}
+
+	public function dispatch_insights() {
+		Insights::init(
+			'https://kodezen.com',
+			WPMAPBLOCK_PLUGIN_SLUG,
+			'plugin',
+			WPMAPBLOCK_VERSION,
+			[
+				'logo'                 => WPMAPBLOCK_ASSETS_URI . 'images/logo.png', // default logo URL
+				'optin_message'        => 'Help improve WP Map Block! Allow anonymous usage tracking?',
+				'deactivation_message' => 'If you have a moment, please share why you are deactivating WP Map Block:',
+				'deactivation_reasons' => [
+					'no_longer_needed'               => [
+						'label' => 'I no longer need the plugin',
+					],
+					'found_a_better_plugin'          => [
+						'label'                     => 'I found a better plugin',
+						'has_custom_reason'         => true,
+						'custom_reason_placeholder' => 'Please share which plugin',
+					],
+					'couldnt_get_the_plugin_to_work' => [
+						'label' => 'I couldn\'t get the plugin to work',
+					],
+					'temporary_deactivation'         => [
+						'label' => 'It\'s a temporary deactivation',
+					],
+					'other'                          => [
+						'label'                     => 'Other',
+						'has_custom_reason'         => true,
+						'custom_reason_placeholder' => 'Please share the reason',
+					],
+				],
+			]
+		);
 	}
 }
