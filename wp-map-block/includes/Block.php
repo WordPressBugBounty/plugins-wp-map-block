@@ -26,7 +26,7 @@ class Block
             if (is_array($value)) {
                 $value = self::escaping_array_data($value);
             } else {
-                $value = esc_attr(wp_kses_post($value));
+                $value = esc_attr(sanitize_text_field($value));
             }
         }
         return $array;
@@ -54,7 +54,13 @@ class Block
 		";
 
         ob_start(); ?>
-		<div id="<?php echo(isset($attributes['map_id']) ? esc_attr($attributes['map_id']) : ''); ?>" data-settings='<?php echo htmlspecialchars(json_encode($settings), ENT_QUOTES, 'UTF-8'); ?>' class="wpmapblockrender" style="<?php echo esc_attr($style); ?>"></div>
+		<div
+            id="<?php echo(isset($attributes['map_id']) ? esc_attr($attributes['map_id']) : ''); ?>"
+            data-settings='<?php echo esc_attr( wp_json_encode( $settings, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) ); ?>'
+            class="wpmapblockrender"
+            style="<?php echo esc_attr($style); ?>"
+            >
+        </div>
         <?php
         $output = ob_get_clean();
         return $output;
