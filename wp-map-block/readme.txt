@@ -5,7 +5,7 @@ Tags: block, map block, google maps, ablocks, gutenberg,
 Requires at least: 6.5
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -145,7 +145,10 @@ Change the way you are writing the address or make it more specific. Make sure t
 
 == Changelog ==
 
-= 2.0.3 – 2024-06-03 =
+= 2.0.4 – 2025-11-04 =
+- Fixed: Security Issue
+
+= 2.0.3 – 2025-06-03 =
 - Fixed: Security Issue
 - Removed: Market content HTML support removed for security issue
 

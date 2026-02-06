@@ -6,7 +6,8 @@ class Admin
 	public static function init(){
 		$self = new self();
 		add_filter( 'plugin_row_meta', array( $self, 'add_plugin_links' ), 10, 2 );
-		add_action( 'admin_notices', array($self, 'ablocks_install_notice') );
+		// add_action( 'admin_notices', array($self, 'ablocks_install_notice') );
+		add_action( 'admin_notices', array($self, 'black_friday_notice') );
 		add_action( 'admin_init', [ $self, 'ablocks_hide_notice' ] );
 		$self->dispatch_insights();
 	}
@@ -46,7 +47,7 @@ class Admin
 		return $links;
 	}
 
-	function ablocks_install_notice() {
+	public function ablocks_install_notice() {
 		if(get_option('wpmapblock_ablocks_install_notice_hidden')){
 			return;
 		}
@@ -144,10 +145,76 @@ class Admin
 			<?php
 		}
 	}
+
+	public function black_friday_notice() {
+		$screen = get_current_screen();
+		if ( ! in_array( $screen->id, ['edit-post', 'edit-page', 'dashboard'] ) ) {
+			return;
+		}
+
+		if(get_option('kodezen_black_friday_notice')){
+			return;
+		}
+
+		if(did_action('kodezen_dispatch_bfcm')){
+			return;
+		}
+
+		do_action('kodezen_dispatch_bfcm');
+		// Generate the installation URL
+		$hide_url   = esc_url( add_query_arg( 'kodezen_black_friday_notice', 1 ) );
+        $cta_url    = 'https://kodezen.com/bfcm-offer/?utm_source=wpmapblock&utm_medium=website&utm_campaign=bfcm&utm_content=Buy%20Now&utm_term=BFCM';
+        $grid_image = esc_url( WPMAPBLOCK_ASSETS_URI . 'images/grid-image.png' );
+        ?>
+        <div style="position:relative;margin:24px 0;padding:36px 32px;background:#151516;overflow:hidden;color:#FFFFFF;font-family:'Inter','Segoe UI',sans-serif;width: 93%;">
+            <a href="<?php echo $hide_url; ?>" style="position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:20px;font-weight:500;text-decoration:none;border: 1px solid;">&times;</a>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+                <div style="flex:1 1 540px;min-width:280px;display:flex;gap:24px;align-items:start;">
+                    <div style="flex-shrink:0;width:70px;height:70px;border-radius:50px;background:#fff;display:flex;align-items:center;justify-content:center;">
+                        <img src="<?php echo esc_url(  'https://kodezen.com/wp-content/uploads/2025/09/svg_1_2.webp' ); ?>" alt="<?php esc_attr_e( 'Kodezen logo', 'wp-map-block' ); ?>" style="width:58px;height:58px;object-fit:contain;">
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:16px;max-width:576px;">
+                        <span style="display:inline-flex;align-items:center;gap:8px;width:max-content;padding:6px 18px;background:#fff;border-radius:50px;font-size:14px;font-weight:500;line-height:1.4;color: #000;"><?php echo wp_kses( __( 'Thanks for using <strong>WP Map Blocks by Kodezen</strong>&#128640;', 'wp-map-block' ), [ 'strong' => [] ] ); ?></span>
+                        <span style="font-size:24px;line-height:1.25;font-weight:500;letter-spacing:-0.02em;"><?php esc_html_e( 'Don\'t miss Kodezen\'s Black Friday Mega Sale', 'wp-map-block' ); ?></span>
+                        <span style="font-size:14px;line-height:1.7;color:#fff;font-weight:400;">
+                            <?php
+                            echo wp_kses(
+                                sprintf(
+                                    __( 'Save up to %1$s OFF on Kodezen WordPress Plugins — the biggest savings of the year!', 'wp-map-block' ),
+                                    '<span style="color:#FFE311;font-weight:600;">88% </span>'
+                                ),
+                                [ 'span' => [ 'style' => [] ] ]
+                            );
+                            ?>
+                        </span>
+                        <a href="<?php echo esc_url( $cta_url ); ?>" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:10px;width:max-content;padding:8px 16px;background:#FF3945;border-radius:8px;font-size:12px;font-weight:600;color:#FFFFFF;text-decoration:none;">
+                            <?php esc_html_e( 'Grab Your Deal Now', 'wp-map-block' ); ?>
+                        </a>
+                    </div>
+                </div>
+                <div style="flex:1 1 300px;min-width:260px;display:flex;justify-content:center;">
+                    <a href="<?php echo esc_url( $cta_url ); ?>" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;max-width:600px;">
+                        <img src="<?php echo $grid_image; ?>" alt="<?php esc_attr_e( 'Kodezen plugin bundle products', 'wp-map-block' ); ?>" style="width:100%;height:auto;">
+                    </a>
+                </div>
+            </div>
+        </div>
+		<?php
+	}
+
 	public function ablocks_hide_notice() {
 		if ( isset( $_GET['ablocks-hide-notice-by-wpmapblock'] ) ) {
 			update_option( 'wpmapblock_ablocks_install_notice_hidden', true, false );
+			// Redirect to remove query param
+			wp_redirect( remove_query_arg( 'ablocks-hide-notice-by-wpmapblock' ) );
+			exit;
+		}else if ( isset( $_GET['kodezen_black_friday_notice'] ) ) {
+			update_option( 'kodezen_black_friday_notice', true, false );
+			// Redirect to remove query param
+			wp_redirect( remove_query_arg( 'kodezen_black_friday_notice' ) );
+			exit;
 		}
+
 	}
 
 	public function dispatch_insights() {
