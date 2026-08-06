@@ -1,84 +1,2793 @@
-# Copyright (C) 2024 aBlocks - Most Powerful blocks Library
+# Copyright (C) 2026 Kodezen
 # This file is distributed under the GPL2+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Map Block by aBlocks 2.0.0\n"
+"Project-Id-Version: WP Map Block 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-map-block\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-20T13:22:47+00:00\n"
+"POT-Creation-Date: 2026-08-06T11:39:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wp-map-block\n"
 
 #. Plugin Name of the plugin
 #: wp-map-block.php
-msgid "WP Map Block by aBlocks"
+#: includes/Admin/Menu.php:82
+#: includes/Admin/Menu.php:83
+#: build/admin.js:15
+#: build/embed.js:1
+msgid "WP Map Block"
 msgstr ""
 
 #. Plugin URI of the plugin
 #: wp-map-block.php
-msgid "https://academylms.net/wp-map-block"
+msgid "https://wpmapblock.com/"
 msgstr ""
 
 #. Description of the plugin
 #: wp-map-block.php
-msgid "Gutenberg Map Block for Google Map and OpenStreet Map build with LeafletJS"
+msgid "All-in-one interactive map builder for WordPress. Build maps visually with markers, categories, clustering, shapes and dynamic data across Google Maps, OpenStreetMap, Mapbox, MapTiler, Esri and more — no API key to start."
 msgstr ""
 
 #. Author of the plugin
 #: wp-map-block.php
-msgid "aBlocks - Most Powerful blocks Library"
+#: build/admin.js:4
+msgid "Kodezen"
 msgstr ""
 
 #. Author URI of the plugin
 #: wp-map-block.php
-msgid "https://ablocks.pro/"
+msgid "https://kodezen.com/"
 msgstr ""
 
-#: includes/Admin.php:21
-msgid "Docs"
+#: includes/Admin/Menu.php:95
+#: includes/Admin/Menu.php:96
+#: includes/PostType.php:24
+msgid "Maps"
 msgstr ""
 
-#: includes/Admin.php:22
-msgid "View WP Map Block documentation"
+#: includes/Admin/Menu.php:103
+#: build/legacy.js:1
+msgid "Map Settings"
 msgstr ""
 
-#: includes/Admin.php:26
-msgid "Community Support"
+#: includes/Admin/Menu.php:104
+#: build/admin.js:8
+msgid "Settings"
 msgstr ""
 
-#: includes/Admin.php:27
-msgid "Visit community forums"
+#: includes/Admin/Menu.php:111
+msgid "Discover"
 msgstr ""
 
-#: includes/Admin.php:31
-msgid "Rate the plugin ★★★★★"
+#: includes/Admin/Menu.php:112
+msgid "Discover ✨"
 msgstr ""
 
-#: includes/Admin.php:32
-msgid "Rate the plugin."
+#: includes/Admin/Menu.php:123
+#: build/admin.js:4
+#: build/admin.js:15
+msgid "Upgrade to Pro"
 msgstr ""
 
-#: includes/Admin.php:63
-msgid "Are you building your site with Gutenberg?"
+#: includes/Admin/Menu.php:124
+msgid "⚡ Upgrade to Pro"
 msgstr ""
 
-#: includes/Admin.php:65
-msgid "aBlocks got you covered. Supercharge your site with aBlocks—the ultimate page builder. With 60+ blocks, you can create stunning websites quickly and effortlessly."
+#: includes/Config.php:81
+msgid "Search a location…"
 msgstr ""
 
-#: includes/Admin.php:66
-msgid "Learn More:"
+#: includes/Config.php:118
+#: build/admin.js:4
+msgid "OpenStreetMap"
 msgstr ""
 
-#: includes/Admin.php:70
-msgid "Install aBlocks Now"
+#: includes/Config.php:124
+#: build/admin.js:4
+msgid "Google Maps"
 msgstr ""
 
-#: includes/Admin.php:73
-msgid "Hide Notice"
+#: includes/Config.php:127
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "Google Maps API Key"
+msgstr ""
+
+#: includes/Config.php:130
+msgid "Mapbox"
+msgstr ""
+
+#: includes/Config.php:133
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "Mapbox Access Token"
+msgstr ""
+
+#: includes/Config.php:136
+msgid "MapTiler"
+msgstr ""
+
+#: includes/Config.php:139
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "MapTiler API Key"
+msgstr ""
+
+#: includes/Config.php:142
+msgid "OpenFreeMap"
+msgstr ""
+
+#: includes/Config.php:148
+msgid "Stadia Maps"
+msgstr ""
+
+#: includes/Config.php:151
+msgid "Stadia API Key (optional)"
+msgstr ""
+
+#: includes/Config.php:154
+msgid "Esri / ArcGIS"
+msgstr ""
+
+#: includes/Config.php:160
+msgid "CARTO"
+msgstr ""
+
+#: includes/Config.php:166
+msgid "Azure Maps"
+msgstr ""
+
+#: includes/Config.php:169
+msgid "Azure Maps Subscription Key"
+msgstr ""
+
+#: includes/Integrations/Location_Meta.php:44
+msgid "Map Location"
+msgstr ""
+
+#: includes/Integrations/Location_Meta.php:60
+msgid "Type an address…"
+msgstr ""
+
+#: includes/Integrations/Location_Meta.php:61
+#: includes/Integrations/Location_Meta.php:88
+msgid "Find"
+msgstr ""
+
+#: includes/Integrations/Location_Meta.php:64
+#: build/admin.js:4
+#: build/embed.js:1
+#: build/legacy.js:1
+msgid "Latitude"
+msgstr ""
+
+#: includes/Integrations/Location_Meta.php:68
+#: build/admin.js:4
+#: build/embed.js:1
+#: build/legacy.js:1
+msgid "Longitude"
+msgstr ""
+
+#: includes/Integrations/Manager.php:85
+msgid "Custom"
+msgstr ""
+
+#: includes/Integrations/StoreEngine.php:55
+msgid "StoreEngine Products"
+msgstr ""
+
+#: includes/Integrations/WooCommerce.php:32
+msgid "WooCommerce Products"
+msgstr ""
+
+#: includes/PostType.php:25
+#: build/embed.js:1
+msgid "Map"
+msgstr ""
+
+#: includes/Presets.php:69
+msgid "Store Locator"
+msgstr ""
+
+#: includes/Presets.php:70
+msgid "Find-a-store map with clustered pins, a searchable list and “near me”."
+msgstr ""
+
+#: includes/Presets.php:76
+msgid "Flagship"
+msgstr ""
+
+#: includes/Presets.php:76
+msgid "Outlet"
+msgstr ""
+
+#: includes/Presets.php:76
+msgid "Partner"
+msgstr ""
+
+#: includes/Presets.php:78
+msgid "Times Square Flagship"
+msgstr ""
+
+#: includes/Presets.php:78
+msgid "Our largest store — open 24/7."
+msgstr ""
+
+#: includes/Presets.php:79
+msgid "Midtown Outlet"
+msgstr ""
+
+#: includes/Presets.php:79
+msgid "Clearance & last-season deals."
+msgstr ""
+
+#: includes/Presets.php:80
+msgid "Flatiron Store"
+msgstr ""
+
+#: includes/Presets.php:80
+msgid "Flagship experience downtown."
+msgstr ""
+
+#: includes/Presets.php:81
+msgid "FiDi Partner"
+msgstr ""
+
+#: includes/Presets.php:81
+msgid "Authorized reseller."
+msgstr ""
+
+#: includes/Presets.php:82
+msgid "Village Outlet"
+msgstr ""
+
+#: includes/Presets.php:82
+msgid "Compact neighborhood shop."
+msgstr ""
+
+#: includes/Presets.php:83
+msgid "Columbus Circle"
+msgstr ""
+
+#: includes/Presets.php:83
+msgid "Inside the mall, level 2."
+msgstr ""
+
+#: includes/Presets.php:84
+msgid "SoHo Partner"
+msgstr ""
+
+#: includes/Presets.php:84
+msgid "Boutique partner location."
+msgstr ""
+
+#: includes/Presets.php:85
+msgid "Grand Central"
+msgstr ""
+
+#: includes/Presets.php:85
+msgid "Commuter-friendly kiosk."
+msgstr ""
+
+#: includes/Presets.php:90
+msgid "Enter your address…"
+msgstr ""
+
+#: includes/Presets.php:100
+msgid "Real Estate Directory"
+msgstr ""
+
+#: includes/Presets.php:101
+msgid "Property listings with a bottom card strip and status filters."
+msgstr ""
+
+#: includes/Presets.php:107
+msgid "For Sale"
+msgstr ""
+
+#: includes/Presets.php:107
+msgid "For Rent"
+msgstr ""
+
+#: includes/Presets.php:107
+msgid "Sold"
+msgstr ""
+
+#: includes/Presets.php:109
+msgid "2BR Loft · Greenwich Village"
+msgstr ""
+
+#: includes/Presets.php:109
+msgid "$1,150,000 · 2 bed · 2 bath"
+msgstr ""
+
+#: includes/Presets.php:110
+msgid "Studio · Chelsea"
+msgstr ""
+
+#: includes/Presets.php:110
+msgid "$3,200/mo · 1 bath"
+msgstr ""
+
+#: includes/Presets.php:111
+msgid "Townhouse · LES"
+msgstr ""
+
+#: includes/Presets.php:111
+msgid "SOLD · $2,400,000"
+msgstr ""
+
+#: includes/Presets.php:112
+msgid "3BR Condo · FiDi"
+msgstr ""
+
+#: includes/Presets.php:112
+msgid "$1,875,000 · 3 bed"
+msgstr ""
+
+#: includes/Presets.php:113
+msgid "1BR · SoHo"
+msgstr ""
+
+#: includes/Presets.php:113
+msgid "$4,100/mo · furnished"
+msgstr ""
+
+#: includes/Presets.php:114
+msgid "Penthouse · NoMad"
+msgstr ""
+
+#: includes/Presets.php:114
+msgid "$5,600,000 · terrace"
+msgstr ""
+
+#: includes/Presets.php:126
+msgid "Restaurant Finder"
+msgstr ""
+
+#: includes/Presets.php:127
+msgid "Eat-nearby map with categories, directions and “use my location”."
+msgstr ""
+
+#: includes/Presets.php:133
+msgid "Café"
+msgstr ""
+
+#: includes/Presets.php:133
+msgid "Restaurant"
+msgstr ""
+
+#: includes/Presets.php:133
+msgid "Bar"
+msgstr ""
+
+#: includes/Presets.php:135
+msgid "Blue Bottle"
+msgstr ""
+
+#: includes/Presets.php:135
+msgid "Pour-over & pastries."
+msgstr ""
+
+#: includes/Presets.php:136
+msgid "Lucali"
+msgstr ""
+
+#: includes/Presets.php:136
+msgid "Legendary wood-fired pizza."
+msgstr ""
+
+#: includes/Presets.php:137
+msgid "Attaboy"
+msgstr ""
+
+#: includes/Presets.php:137
+msgid "Cocktails, no menu."
+msgstr ""
+
+#: includes/Presets.php:138
+msgid "Balthazar"
+msgstr ""
+
+#: includes/Presets.php:138
+msgid "Classic French brasserie."
+msgstr ""
+
+#: includes/Presets.php:139
+msgid "La Colombe"
+msgstr ""
+
+#: includes/Presets.php:139
+msgid "Draft latte pioneers."
+msgstr ""
+
+#: includes/Presets.php:140
+msgid "Employees Only"
+msgstr ""
+
+#: includes/Presets.php:140
+msgid "Speakeasy vibes."
+msgstr ""
+
+#: includes/Presets.php:141
+msgid "Katz’s Deli"
+msgstr ""
+
+#: includes/Presets.php:141
+msgid "Pastrami since 1888."
+msgstr ""
+
+#: includes/Presets.php:146
+msgid "Where are you?"
+msgstr ""
+
+#: includes/Presets.php:156
+msgid "Travel Guide"
+msgstr ""
+
+#: includes/Presets.php:157
+msgid "Curated attractions grouped by type — perfect for a city guide."
+msgstr ""
+
+#: includes/Presets.php:163
+msgid "Landmark"
+msgstr ""
+
+#: includes/Presets.php:163
+msgid "Museum"
+msgstr ""
+
+#: includes/Presets.php:163
+msgid "Park"
+msgstr ""
+
+#: includes/Presets.php:165
+msgid "Eiffel Tower"
+msgstr ""
+
+#: includes/Presets.php:165
+msgid "Iron icon of Paris."
+msgstr ""
+
+#: includes/Presets.php:166
+msgid "Louvre Museum"
+msgstr ""
+
+#: includes/Presets.php:166
+msgid "World’s largest art museum."
+msgstr ""
+
+#: includes/Presets.php:167
+msgid "Luxembourg Gardens"
+msgstr ""
+
+#: includes/Presets.php:167
+msgid "Formal gardens & palace."
+msgstr ""
+
+#: includes/Presets.php:168
+msgid "Notre-Dame"
+msgstr ""
+
+#: includes/Presets.php:168
+msgid "Gothic cathedral."
+msgstr ""
+
+#: includes/Presets.php:169
+msgid "Musée d’Orsay"
+msgstr ""
+
+#: includes/Presets.php:169
+msgid "Impressionist masterpieces."
+msgstr ""
+
+#: includes/Presets.php:170
+msgid "Montmartre"
+msgstr ""
+
+#: includes/Presets.php:170
+msgid "Hilltop artist quarter."
+msgstr ""
+
+#. translators: %d: sequential signal number in the demo heatmap.
+#: includes/Presets.php:190
+#, php-format
+msgid "Signal #%d"
+msgstr ""
+
+#: includes/Presets.php:194
+msgid "Heatmap Dashboard"
+msgstr ""
+
+#: includes/Presets.php:195
+msgid "Turn hundreds of points into a density heatmap — great for analytics."
+msgstr ""
+
+#: includes/Presets.php:212
+msgid "Global Vector Map"
+msgstr ""
+
+#: includes/Presets.php:213
+msgid "Smooth GPU vector tiles (OpenFreeMap) with worldwide clustered markers."
+msgstr ""
+
+#: includes/Presets.php:221
+msgid "New York"
+msgstr ""
+
+#: includes/Presets.php:222
+msgid "London"
+msgstr ""
+
+#: includes/Presets.php:223
+msgid "Paris"
+msgstr ""
+
+#: includes/Presets.php:224
+msgid "Tokyo"
+msgstr ""
+
+#: includes/Presets.php:225
+msgid "Sydney"
+msgstr ""
+
+#: includes/Presets.php:226
+msgid "Singapore"
+msgstr ""
+
+#: includes/Presets.php:227
+msgid "São Paulo"
+msgstr ""
+
+#: includes/Presets.php:228
+msgid "Mumbai"
+msgstr ""
+
+#: includes/Presets.php:229
+msgid "Dubai"
+msgstr ""
+
+#: includes/Presets.php:230
+msgid "San Francisco"
+msgstr ""
+
+#: includes/Pro.php:34
+#: build/admin.js:8
+msgid "Dynamic data sources"
+msgstr ""
+
+#: includes/Pro.php:35
+msgid "Auto-populate markers from posts, pages, custom post types, ACF fields and WooCommerce/StoreEngine — the map updates as your content does."
+msgstr ""
+
+#: includes/Pro.php:40
+#: build/admin.js:4
+msgid "Store locator"
+msgstr ""
+
+#: includes/Pro.php:41
+msgid "Radius search, geolocation, filters and a results list so visitors can find their nearest location."
+msgstr ""
+
+#: includes/Pro.php:46
+msgid "Directions & routing"
+msgstr ""
+
+#: includes/Pro.php:47
+msgid "Add turn-by-turn directions and drive-time from each marker."
+msgstr ""
+
+#: includes/Pro.php:52
+msgid "Heatmaps"
+msgstr ""
+
+#: includes/Pro.php:53
+msgid "Render markers as a density heatmap to reveal hotspots across large datasets."
+msgstr ""
+
+#: includes/Pro.php:58
+msgid "Polygons & polylines"
+msgstr ""
+
+#: includes/Pro.php:59
+msgid "Draw regions, routes and boundaries with styled polygons and polylines, right on the map."
+msgstr ""
+
+#: includes/Pro.php:64
+msgid "Traffic, transit & bicycle layers"
+msgstr ""
+
+#: includes/Pro.php:65
+msgid "Overlay live traffic, transit lines and bicycling routes on Google-powered maps."
+msgstr ""
+
+#: includes/Pro.php:70
+msgid "Marker animations"
+msgstr ""
+
+#: includes/Pro.php:71
+msgid "Bring markers to life with bounce, drop and pulse animations."
+msgstr ""
+
+#: includes/Pro.php:76
+#: build/admin.js:14
+msgid "Premium map providers"
+msgstr ""
+
+#: includes/Pro.php:77
+msgid "Unlock Mapbox, MapTiler, OpenFreeMap, Stadia, Esri, CARTO & Azure — OpenStreetMap and Google Maps stay free."
+msgstr ""
+
+#: includes/Pro.php:103
+msgid "Personal"
+msgstr ""
+
+#: includes/Pro.php:104
+msgid "1 Site"
+msgstr ""
+
+#: includes/Pro.php:107
+msgid "67% OFF"
+msgstr ""
+
+#: includes/Pro.php:113
+msgid "Business"
+msgstr ""
+
+#: includes/Pro.php:114
+msgid "10 Sites"
+msgstr ""
+
+#: includes/Pro.php:117
+msgid "60% OFF"
+msgstr ""
+
+#: includes/Pro.php:123
+msgid "Agency"
+msgstr ""
+
+#: includes/Pro.php:124
+#: build/admin.js:8
+msgid "Unlimited"
+msgstr ""
+
+#: includes/Pro.php:127
+msgid "68% OFF"
+msgstr ""
+
+#: includes/Pro/License.php:154
+msgid "Activate WP Map Block Pro"
+msgstr ""
+
+#: includes/Pro/License.php:159
+msgid "Activate your WP Map Block Pro license to unlock premium features"
+msgstr ""
+
+#: includes/Pro/License.php:238
+msgid "WP Map Block License"
+msgstr ""
+
+#: includes/Pro/License.php:239
+#: build/admin.js:8
+msgid "License"
+msgstr ""
+
+#: includes/Recommendations.php:32
+msgid "Learning"
+msgstr ""
+
+#: includes/Recommendations.php:33
+msgid "AI-powered LMS to create, manage and sell online courses."
+msgstr ""
+
+#: includes/Recommendations.php:37
+msgid "Map your campuses & classes, then sell the courses with Academy."
+msgstr ""
+
+#: includes/Recommendations.php:38
+msgid "Add online courses alongside your location map."
+msgstr ""
+
+#: includes/Recommendations.php:43
+msgid "Page building"
+msgstr ""
+
+#: includes/Recommendations.php:44
+msgid "Advanced Gutenberg builder with 60+ blocks — a clean alternative to Elementor."
+msgstr ""
+
+#: includes/Recommendations.php:48
+msgid "Design the whole page around your map with aBlocks — 60+ blocks."
+msgstr ""
+
+#: includes/Recommendations.php:49
+msgid "Build fast, bloat-free layouts around your maps with aBlocks."
+msgstr ""
+
+#: includes/Recommendations.php:54
+msgid "eCommerce"
+msgstr ""
+
+#: includes/Recommendations.php:55
+msgid "All-in-one eCommerce — sell products, courses, memberships and services."
+msgstr ""
+
+#: includes/Recommendations.php:59
+msgid "StoreEngine + your map = a store locator that sells."
+msgstr ""
+
+#: includes/Recommendations.php:60
+msgid "Sell products & services from every location on your map."
+msgstr ""
+
+#: includes/Recommendations.php:65
+msgid "CRM"
+msgstr ""
+
+#: includes/Recommendations.php:66
+msgid "Native WordPress CRM with pipelines and email automation."
+msgstr ""
+
+#: includes/Recommendations.php:70
+msgid "Capture leads from your map and follow up automatically."
+msgstr ""
+
+#: includes/Recommendations.php:71
+msgid "Turn map inquiries into customers with GemCRM."
+msgstr ""
+
+#: includes/Recommendations.php:76
+msgid "Booking"
+msgstr ""
+
+#: includes/Recommendations.php:77
+msgid "Complete booking & appointment system for WordPress."
+msgstr ""
+
+#: includes/Recommendations.php:81
+msgid "Let customers book at every location on your map."
+msgstr ""
+
+#: includes/Recommendations.php:82
+msgid "GemBooking + map = book-at-this-location."
+msgstr ""
+
+#: includes/Recommendations.php:87
+msgid "Community"
+msgstr ""
+
+#: includes/Recommendations.php:88
+msgid "Community, support and live chat — build a hub around your site."
+msgstr ""
+
+#: includes/Recommendations.php:92
+msgid "Build a community around your locations."
+msgstr ""
+
+#: includes/Recommendations.php:93
+msgid "Give your map audience groups & discussions."
+msgstr ""
+
+#: includes/Recommendations.php:98
+msgid "Gamification"
+msgstr ""
+
+#: includes/Recommendations.php:99
+msgid "Points, badges, ranks and leaderboards to boost engagement."
+msgstr ""
+
+#: includes/Recommendations.php:103
+msgid "Reward check-ins & directory engagement with points & badges."
+msgstr ""
+
+#: includes/Recommendations.php:104
+msgid "Gamify visits to the places on your map."
+msgstr ""
+
+#: includes/Recommendations.php:109
+msgid "Automation"
+msgstr ""
+
+#: includes/Recommendations.php:110
+msgid "No-code WordPress automation with 50+ integrations."
+msgstr ""
+
+#: includes/Recommendations.php:114
+msgid "Automate what happens when a map lead comes in — 50+ integrations."
+msgstr ""
+
+#: includes/Recommendations.php:115
+msgid "Connect your maps & forms to anything with Zaplane."
+msgstr ""
+
+#: includes/Recommendations.php:120
+msgid "Mobile apps"
+msgstr ""
+
+#: includes/Recommendations.php:121
+msgid "Turn your WordPress site into a native mobile app — no code."
+msgstr ""
+
+#: includes/Recommendations.php:125
+msgid "Turn your map directory into a mobile app — no code."
+msgstr ""
+
+#: includes/Recommendations.php:126
+msgid "Ship your store locator as a mobile app with ZenAppBuilder."
+msgstr ""
+
+#: includes/Recommendations.php:131
+msgid "Assessments"
+msgstr ""
+
+#: includes/Recommendations.php:132
+msgid "Advanced quiz, poll, survey and exam builder."
+msgstr ""
+
+#: includes/Recommendations.php:136
+msgid "Add location-based quizzes & tours to your map."
+msgstr ""
+
+#: includes/Recommendations.php:137
+msgid "Engage map visitors with interactive quizzes."
+msgstr ""
+
+#: includes/Recommendations.php:142
+msgid "Project management"
+msgstr ""
+
+#: includes/Recommendations.php:143
+msgid "Project & task management with boards, tasks and teams."
+msgstr ""
+
+#: includes/Recommendations.php:147
+msgid "Plan your map & site projects with tasks and teams."
+msgstr ""
+
+#: includes/Recommendations.php:148
+msgid "Manage client map projects with GemBoards."
+msgstr ""
+
+#: includes/Recommendations.php:153
+#: build/admin.js:4
+#: build/legacy.js:1
+msgid "Content"
+msgstr ""
+
+#: includes/Recommendations.php:154
+msgid "Custom fields, post types and taxonomies — the easy way."
+msgstr ""
+
+#: includes/Recommendations.php:158
+msgid "ECM + WP Map Block = a directory. Build listing types, plot them on the map."
+msgstr ""
+
+#: includes/Recommendations.php:159
+msgid "Create listing post types & custom fields — then map them automatically."
+msgstr ""
+
+#: includes/Recommendations.php:164
+msgid "Templates"
+msgstr ""
+
+#: includes/Recommendations.php:165
+msgid "Premium, ready-made template library for aBlocks."
+msgstr ""
+
+#: includes/Recommendations.php:169
+msgid "Launch faster with ready-made aBlocks templates."
+msgstr ""
+
+#: includes/Recommendations.php:170
+msgid "Premium templates to build the page around your map."
+msgstr ""
+
+#: includes/Recommendations.php:182
+msgid "Kodezen Bundle"
+msgstr ""
+
+#: includes/Recommendations.php:183
+msgid "Power your entire business with one WordPress system — every Kodezen plugin in a single bundle."
+msgstr ""
+
+#: includes/Recommendations.php:197
+msgid "40% off"
+msgstr ""
+
+#: includes/Recommendations.php:198
+msgid "Valid on any single Kodezen plugin — not the Kodezen Bundle."
+msgstr ""
+
+#: includes/Rest/Maps_Controller.php:95
+#: includes/Rest/Maps_Controller.php:98
+#: includes/Rest/Maps_Controller.php:146
+#: includes/Rest/Maps_Controller.php:176
+#: includes/Rest/Maps_Controller.php:199
+#: includes/Rest/Maps_Controller.php:210
+#: includes/Rest/Maps_Controller.php:233
+msgid "Map not found"
+msgstr ""
+
+#: includes/Rest/Maps_Controller.php:154
+#: build/admin.js:4
+msgid "Untitled Map"
+msgstr ""
+
+#. translators: %s: original map title
+#: includes/Rest/Maps_Controller.php:216
+#, php-format
+msgid "%s (copy)"
+msgstr ""
+
+#: includes/Rest/Maps_Controller.php:250
+msgid "Nothing to do."
+msgstr ""
+
+#: includes/Rest/Promos_Controller.php:68
+msgid "A valid email is required."
+msgstr ""
+
+#: includes/Rest/Promos_Controller.php:98
+msgid "Missing promo id"
+msgstr ""
+
+#: wp-map-block.php:255
+msgid "WP Map Block Pro is active."
+msgstr ""
+
+#: wp-map-block.php:256
+msgid "The free WP Map Block plugin is also active and must be deactivated to avoid a conflict (both bundle the same libraries)."
+msgstr ""
+
+#: wp-map-block.php:258
+msgid "Deactivate free version"
+msgstr ""
+
+#: build/admin.js:1
+#: build/legacy.js:1
+msgid "Edit"
+msgstr ""
+
+#: build/admin.js:1
+msgid "More actions"
+msgstr ""
+
+#: build/admin.js:1
+msgid "Duplicate"
+msgstr ""
+
+#: build/admin.js:1
+#: build/admin.js:4
+msgid "Delete"
+msgstr ""
+
+#: build/admin.js:1
+#, js-format
+msgid "Delete %d map? This cannot be undone."
+msgid_plural "Delete %d maps? This cannot be undone."
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin.js:1
+msgid "Loading your maps…"
+msgstr ""
+
+#. translators: %d is the number of saved maps.
+#: build/admin.js:4
+#, js-format
+msgid "%d map in your library"
+msgid_plural "%d maps in your library"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin.js:4
+msgid "My Maps"
+msgstr ""
+
+#: build/admin.js:4
+msgid "New Map"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Search maps by name…"
+msgstr ""
+
+#: build/admin.js:4
+#: build/admin.js:8
+msgid "All"
+msgstr ""
+
+#: build/admin.js:4
+#: build/admin.js:8
+msgid "Active"
+msgstr ""
+
+#: build/admin.js:4
+#: build/admin.js:8
+msgid "Inactive"
+msgstr ""
+
+#: build/admin.js:4
+#, js-format
+msgid "%d selected"
+msgid_plural "%d selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin.js:4
+msgid "Activate"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Deactivate"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Clear"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Select all maps"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Name"
+msgstr ""
+
+#: build/admin.js:4
+#: build/admin.js:14
+msgid "Provider"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Markers"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Shortcode"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Status"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Actions"
+msgstr ""
+
+#: build/admin.js:4
+msgid "No maps match your search."
+msgstr ""
+
+#: build/admin.js:4
+#, js-format
+msgid "Select %s"
+msgstr ""
+
+#: build/admin.js:4
+#: build/embed.js:1
+msgid "(untitled)"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Copy shortcode"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Copied!"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Active — click to deactivate"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Inactive — click to activate"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Delete this map? This cannot be undone."
+msgstr ""
+
+#: build/admin.js:4
+msgid "No maps yet"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Build your first interactive map in minutes."
+msgstr ""
+
+#: build/admin.js:4
+#: build/admin.js:14
+msgid "Create your first map"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Pro feature"
+msgstr ""
+
+#: build/admin.js:4
+#: build/admin.js:14
+#: build/embed.js:1
+msgid "Pro"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Upgrade →"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Road"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Satellite"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Hybrid"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Terrain"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Map provider"
+msgstr ""
+
+#: build/admin.js:4
+msgid "No key set. Add one here or globally under Settings."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Overrides the global key for this map only."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Using global key"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Map type"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Satellite / hybrid / terrain work on every provider."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Style name"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Layers"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Traffic"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Transit"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Bicycling"
+msgstr ""
+
+#: build/admin.js:4
+msgid "OpenStreetMap needs no API key — great for a free, privacy-friendly default."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Search a place or address…"
+msgstr ""
+
+#: build/admin.js:4
+msgid "No matching places found."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Tip: search a place above, or pan & zoom the preview — the center and zoom update automatically."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Center latitude"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Center longitude"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Zoom"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Min"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Max"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Width"
+msgstr ""
+
+#: build/admin.js:4
+msgid "e.g. 100% or 800px"
+msgstr ""
+
+#: build/admin.js:4
+#: build/embed.js:1
+#: build/legacy.js:1
+msgid "Height (px)"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Upload custom"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Custom color"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Custom icon — square PNG ~64×64 recommended."
+msgstr ""
+
+#: build/admin.js:4
+msgid "remove"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Replace image"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Replace"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Remove"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Select image"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Add image"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Shown at the top of the popup"
+msgstr ""
+
+#: build/admin.js:4
+msgid "— none —"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Animation"
+msgstr ""
+
+#: build/admin.js:4
+msgid "None"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Bounce"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Drop"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Pulse"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Draggable markers (reposition by dragging)"
+msgstr ""
+
+#: build/admin.js:4
+#: build/embed.js:1
+msgid "Add marker"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Optional: click directly on the map to place markers"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Placing…"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Pick on map"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Click the map to drop markers. Click “Placing…” again to stop."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Adds at the map center — then edit or drag it. Or search an address above."
+msgstr ""
+
+#: build/admin.js:4
+msgid "No markers yet."
+msgstr ""
+
+#: build/admin.js:4
+msgid "(no title)"
+msgstr ""
+
+#: build/admin.js:4
+#: build/embed.js:1
+#: build/legacy.js:1
+msgid "Title"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Popup image"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Link (optional)"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Category"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Marker icon"
+msgstr ""
+
+#: build/admin.js:4
+#: build/embed.js:1
+msgid "Delete marker"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Draw polygons and polylines. Toggle “Draw on map”, then click the map to drop points — or paste coordinates."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Polyline"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Polygon"
+msgstr ""
+
+#: build/admin.js:4
+msgid "pts"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Click map to add points — done"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Draw on map"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Line color"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Line width"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Fill color"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Fill opacity"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Points (lat, lng per line)"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Add polygon"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Add polyline"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Group markers into categories. A category’s color is used for its markers’ pins."
+msgstr ""
+
+#: build/admin.js:4
+msgid "New category"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Add category"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Learn more →"
+msgstr ""
+
+#: build/admin.js:4
+#: build/admin.js:14
+msgid "Dismiss"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Pull markers dynamically from posts, an external GeoJSON file, or a REST endpoint — no manual entry."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Post type"
+msgstr ""
+
+#: build/admin.js:4
+msgid "— select —"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Latitude meta key"
+msgstr ""
+
+#: build/admin.js:4
+msgid "e.g. latitude"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Longitude meta key"
+msgstr ""
+
+#: build/admin.js:4
+msgid "e.g. longitude"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Type any meta or ACF field name — existing keys are suggested."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Max posts"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Listing source"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Products/listings with a Map Location appear as markers, grouped by their taxonomy."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Max items"
+msgstr ""
+
+#: build/admin.js:4
+msgid "GeoJSON URL"
+msgstr ""
+
+#: build/admin.js:4
+msgid "REST endpoint URL"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Should return markers as an array of {lat,lng,title,…}."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Use sample data for a quick test →"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Add listing source"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Posts"
+msgstr ""
+
+#: build/admin.js:4
+msgid "GeoJSON"
+msgstr ""
+
+#: build/admin.js:4
+msgid "REST"
+msgstr ""
+
+#: build/admin.js:4
+msgid "CPT sources render live on the frontend; edits appear after you save."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Zoom buttons"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Fullscreen button"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Scale bar"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Locate me button"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Scroll-wheel zoom"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Map appearance"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Theme"
+msgstr ""
+
+#: build/admin.js:4
+msgid "How the base map looks to visitors. Dark uses a dark basemap; Auto follows the visitor’s system setting."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Light"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Dark"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Auto"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Controls"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Map layers"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Overlay transport layers. Transit & bicycle work on every provider; live traffic requires the Google Maps provider."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Live traffic — Google Maps provider only."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Bicycle"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Clustering"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Enable clustering"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Group nearby markers for performance with many points."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Radius (px)"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Cluster to zoom"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Heatmap"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Enable heatmap"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Render markers as a density heatmap instead of pins."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Intensity"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Enable search / locator"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Adds a search box so visitors can find the nearest markers."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Placeholder"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Radius"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Unit"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Show results list"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Popup"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Style preset"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Button label"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Shown on the marker link (e.g. “Learn more”, “Book now”)."
+msgstr ""
+
+#: build/admin.js:4
+#: build/admin.js:8
+msgid "Learn more"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Max width (px)"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Color scheme"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Directory / list"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Enable directory / list"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Show a browsable list of markers alongside the map."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Layout"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Side panel"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Bottom bar"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Position"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Left"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Right"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Width (px)"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Show search"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Show categories"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Start collapsed"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Show only the header; visitors expand it to browse."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Directions"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Enable directions"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Add a link on each marker to open turn-by-turn directions."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Open directions in"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Geolocation"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Show ‘Use my location’ button"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Applies when the store locator is enabled."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Start with a template"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Pick a ready-made map to see what’s possible — then customize everything."
+msgstr ""
+
+#: build/admin.js:4
+msgid "All maps"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Blank map"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Start from scratch with the defaults."
+msgstr ""
+
+#: build/admin.js:4
+msgid "Use this template"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Building something bigger?"
+msgstr ""
+
+#: build/admin.js:4
+msgid "See tools that pair with your map →"
+msgstr ""
+
+#: build/admin.js:4
+msgid "View"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Shapes"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Categories"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Data"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Search"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Display"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Map name"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Save to get a shortcode"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Saved"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Save failed"
+msgstr ""
+
+#: build/admin.js:4
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "Saving…"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Save Map"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Live preview"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Save the map to get a shortcode"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Import JSON"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Import CSV"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Import KML/GPX"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Export"
+msgstr ""
+
+#: build/admin.js:4
+msgid "Imported"
+msgstr ""
+
+#. translators: %d: number of markers imported
+#: build/admin.js:6
+#: build/admin.js:8
+#, js-format
+msgid "Imported %d markers"
+msgstr ""
+
+#: build/admin.js:8
+msgid "No markers found in that file"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Click on the map to drop a marker"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Request failed. Please try again."
+msgstr ""
+
+#: build/admin.js:8
+msgid "License activated — applying Pro features…"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Running on the offline grace period — reconnect to verify your license."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Key"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Expires"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Sites"
+msgstr ""
+
+#: build/admin.js:8
+msgid "License deactivated."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Working…"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Deactivate license"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Manage in store"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Enter your license key to unlock Pro features, updates and support."
+msgstr ""
+
+#: build/admin.js:8
+msgid "License key"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Activating…"
+msgstr ""
+
+#: build/admin.js:8
+#: build/admin.js:15
+msgid "Activate license"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Get a license"
+msgstr ""
+
+#: build/admin.js:8
+msgid "More from Kodezen"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Tools that pair with your maps."
+msgstr ""
+
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "Best value"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Explore all tools →"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Configure map defaults, provider API keys and the admin appearance."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Map defaults"
+msgstr ""
+
+#: build/admin.js:8
+msgid "The provider new maps start with. You can still change it per map."
+msgstr ""
+
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "Default map provider"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Appearance"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Admin theme for the map builder."
+msgstr ""
+
+#: build/admin.js:8
+msgid "API Keys"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Global keys used by every map unless a map overrides them. OpenStreetMap & OpenFreeMap need no key."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Settings saved"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Save Settings"
+msgstr ""
+
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "Your name & email (to send tips and offers)"
+msgstr ""
+
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "Site URL, WordPress & PHP version"
+msgstr ""
+
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "Active theme and which map providers you use"
+msgstr ""
+
+#: build/admin.js:8
+#: build/admin.js:14
+msgid "Number of maps — never your content or visitors"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Explore the bundle →"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Gift unlocked — thank you! 🧡"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Special discount"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Click to copy"
+msgstr ""
+
+#: build/admin.js:8
+msgid "How to redeem"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Copy the code above."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Click “Claim my gift” to open the store and pick any single Kodezen plugin."
+msgstr ""
+
+#. translators: 1: coupon code, 2: discount amount
+#: build/admin.js:8
+#, js-format
+msgid "Paste %1$s at checkout to get %2$s."
+msgstr ""
+
+#: build/admin.js:8
+msgid "The discount applies to individual plugins only — not the Kodezen Bundle."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Claim my gift"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Thank you for being part of the journey. — The Kodezen team"
+msgstr ""
+
+#: build/admin.js:8
+msgid "You made it — one last step!"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Unlock your founding-member coupon — and we’ll send the occasional map tip & exclusive offer."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Unlocking…"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Unlock my gift"
+msgstr ""
+
+#. translators: %s: account email
+#: build/admin.js:8
+#, js-format
+msgid "Using %s"
+msgstr ""
+
+#: build/admin.js:8
+msgid "What we collect"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Your founding-member gift"
+msgstr ""
+
+#: build/admin.js:8
+msgid "WP Map Block started the whole Kodezen ecosystem. Scroll down to explore it and reveal your thank-you gift."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Unwrapping…"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Keep scrolling to reveal ↓"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Discover & Rewards"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Power your entire business with one WordPress system — and unwrap a founding-member gift as you explore the suite that grew from WP Map Block."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Installed"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Visit site"
+msgstr ""
+
+#: build/admin.js:8
+msgid "All Kodezen plugins are built to work together — one account, one ecosystem."
+msgstr ""
+
+#: build/admin.js:8
+msgid "See the complete bundle →"
+msgstr ""
+
+#: build/admin.js:8
+msgid "All-in-one visual builder"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Design maps on a live canvas — drop markers, tune the view and see every change instantly."
+msgstr ""
+
+#: build/admin.js:8
+msgid "9 map providers & map types"
+msgstr ""
+
+#: build/admin.js:8
+msgid "OpenStreetMap, Google, Mapbox, MapTiler, OpenFreeMap, Stadia, Esri, CARTO & Azure — with Road, Satellite, Hybrid and Terrain views."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Richer markers"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Categories, a custom icon library, popup images, bounce/drop/pulse animations and draggable markers."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Shapes, clustering & heatmaps"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Draw polygons and polylines on the map, and handle hundreds of points with clustering or heatmap layers."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Populate markers from posts, custom post types, ACF fields, GeoJSON and REST — the map updates as your content does."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Store locator & directory"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Radius search, geolocation, directions and a browsable, collapsible list — turn any map into a store locator."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Import & export"
+msgstr ""
+
+#: build/admin.js:8
+msgid "Bring markers in from JSON, CSV, KML or GPX — and export your maps to move them anywhere."
+msgstr ""
+
+#: build/admin.js:8
+msgid "Blocks & backward compatible"
+msgstr ""
+
+#: build/admin.js:8
+msgid "A Gutenberg block, a quick multi-marker simple map, and the classic block + all existing maps keep working."
+msgstr ""
+
+#. translators: %s is the plugin version.
+#: build/admin.js:11
+#, js-format
+msgid "What’s new in WP Map Block %s"
+msgstr ""
+
+#: build/admin.js:11
+msgid "What’s new in WP Map Block"
+msgstr ""
+
+#. translators: %s is the previous version.
+#: build/admin.js:14
+#, js-format
+msgid "You just upgraded from %s. Here’s what changed."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Thanks for updating — here’s what’s new in this release."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Go to my maps"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Build a map"
+msgstr ""
+
+#: build/admin.js:14
+msgid "New"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Get more from Kodezen"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Tools that pair beautifully with your maps."
+msgstr ""
+
+#: build/admin.js:14
+msgid "See all →"
+msgstr ""
+
+#: build/admin.js:14
+msgid "View bundle →"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Connect"
+msgstr ""
+
+#: build/admin.js:14
+msgid "API keys"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Finish"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Welcome to WP Map Block"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Let’s get you set up in under a minute. First, pick the map provider new maps should start with — you can always change it per map."
+msgstr ""
+
+#: build/admin.js:14
+msgid "OpenStreetMap & OpenFreeMap are free and need no API key — a great privacy-friendly default."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Get the most out of WP Map Block"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Join the community and we’ll send setup tips, new features and an exclusive launch discount on the Pro upgrade."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Your name"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Jane Doe"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Email address"
+msgstr ""
+
+#: build/admin.js:14
+msgid "you@example.com"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Yes, keep me updated & help improve the plugin"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Share anonymous usage data so we can build the right features. Opt out anytime."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Hide what we collect"
+msgstr ""
+
+#: build/admin.js:14
+msgid "What we collect →"
+msgstr ""
+
+#: build/admin.js:14
+msgid "By continuing you agree to our"
+msgstr ""
+
+#: build/admin.js:14
+msgid "terms"
+msgstr ""
+
+#: build/admin.js:14
+msgid "and"
+msgstr ""
+
+#: build/admin.js:14
+msgid "privacy policy"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Add your API keys"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Optional — only needed for the providers that require them. You can skip this and add keys later in Settings."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Paste key…"
+msgstr ""
+
+#: build/admin.js:14
+msgid "You’re all set!"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Your defaults are saved. Create your first interactive map or head to the dashboard."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Go to dashboard"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Back"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Skip"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Continue"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Visual builder with live preview & place search"
+msgstr ""
+
+#: build/admin.js:14
+msgid "5 map providers (OSM, OpenFreeMap, Google, Mapbox, MapTiler)"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Unlimited maps, markers, categories & popups"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Basic marker clustering"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Import / export (JSON, CSV, KML, GPX)"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Gutenberg block + shortcode"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Free vs Pro"
+msgstr ""
+
+#: build/admin.js:14
+msgid "You already have a powerful free map builder. Pro adds live data and the features businesses run on."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Limited-time launch deal"
+msgstr ""
+
+#: build/admin.js:14
+msgid "One-time payment · lifetime access · no yearly renewals. Ends soon."
+msgstr ""
+
+#: build/admin.js:14
+#: build/admin.js:15
+msgid "Compare plans"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Limited-time lifetime deal — pay once, no yearly renewals."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Free"
+msgstr ""
+
+#: build/admin.js:14
+msgid "$0"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Forever"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Popular"
+msgstr ""
+
+#: build/admin.js:14
+msgid "One-time · Lifetime"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Current Plan"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Buy Now"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Limited-time offer — all plans are one-time lifetime deals. Pay once, use forever. No yearly renewals, no API key, no subscription."
+msgstr ""
+
+#: build/admin.js:14
+msgid "Manage license"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Back to my maps"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Store locator & search"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Turn-by-turn directions"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Heatmaps & clustering"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Ends today"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Limited-time launch offer"
+msgstr ""
+
+#: build/admin.js:14
+msgid "Unlock everything with WP Map Block Pro"
+msgstr ""
+
+#. translators: %s: number of days
+#: build/admin.js:15
+msgid "Your upgrade window closes today — grab Pro before the timer runs out."
+msgstr ""
+
+#: build/admin.js:15
+#, js-format
+msgid "You have a %s-day head start to upgrade at launch pricing."
+msgstr ""
+
+#: build/admin.js:15
+msgid "days"
+msgstr ""
+
+#: build/admin.js:15
+msgid "hrs"
+msgstr ""
+
+#: build/admin.js:15
+msgid "min"
+msgstr ""
+
+#: build/admin.js:15
+msgid "sec"
+msgstr ""
+
+#: build/admin.js:15
+msgid "Build & manage interactive maps for your site"
+msgstr ""
+
+#: build/admin.js:15
+msgid "See what’s new"
+msgstr ""
+
+#: build/admin.js:15
+msgid "What’s new"
+msgstr ""
+
+#: build/admin.js:15
+msgid "Activate your license to enable automatic updates"
+msgstr ""
+
+#: build/admin.js:15
+msgid "A gift for you 🎁"
+msgstr ""
+
+#: build/admin.js:15
+msgid "Switch to light"
+msgstr ""
+
+#: build/admin.js:15
+msgid "Switch to dark"
+msgstr ""
+
+#: build/admin.js:15
+msgid "WP Map Block is part of the Kodezen ecosystem."
+msgstr ""
+
+#: build/admin.js:15
+msgid "Discover more tools →"
+msgstr ""
+
+#: build/embed.js:1
+#: build/legacy.js:1
+msgid "Map preview"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Show a map you built, or a quick simple map."
+msgstr ""
+
+#: build/embed.js:1
+#: build/legacy.js:1
+msgid "map"
+msgstr ""
+
+#: build/embed.js:1
+msgid "google"
+msgstr ""
+
+#: build/embed.js:1
+msgid "location"
+msgstr ""
+
+#: build/embed.js:1
+msgid "marker"
+msgstr ""
+
+#: build/embed.js:1
+msgid "— Select a saved map —"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Embed a map you built, or drop in a quick simple map."
+msgstr ""
+
+#: build/embed.js:1
+msgid "Use a saved map"
+msgstr ""
+
+#: build/embed.js:1
+msgid "No saved maps yet."
+msgstr ""
+
+#: build/embed.js:1
+msgid "Use a simple map"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Create a new map"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Change map"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Change"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Saved map"
+msgstr ""
+
+#: build/embed.js:1
+msgid "— Select —"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Create a new map ↗"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Choose a saved map."
+msgstr ""
+
+#: build/embed.js:1
+msgid "Map settings"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Choose map"
+msgstr ""
+
+#: build/embed.js:1
+#: build/legacy.js:1
+msgid "Width (%)"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Zoom level"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Enable scroll wheel zoom"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Map markers"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Add locations and pick which one the map centers on."
+msgstr ""
+
+#: build/embed.js:1
+msgid "Collapse marker"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Expand marker"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Collapse"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Expand"
+msgstr ""
+
+#: build/embed.js:1
+#: build/legacy.js:1
+msgid "Marker"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Centered"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Marker actions"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Center map here"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Text"
+msgstr ""
+
+#: build/embed.js:1
+msgid "Need more? Build a full map ↗"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Location Search..."
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Draggable Marker — change the marker position by dragging it."
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Marker Editor"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Advanced Settings"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Set As Default Position"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Choose Icon Type"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Default Icon"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Custom Icon"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Icon Width"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Icon Height"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Icon"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Upload Icon"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Replace Icon"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Remove Icon"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Save & Close"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Classic map — all your original settings live here. For clustering, heatmaps, dynamic data and more providers, build an advanced map with the new WP Map Block."
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Choose Map"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Google Map"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Open Street map"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Zoom Level"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Enable Scroll Wheel Zoom"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Map Marker"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Remove marker"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "+ Add Marker"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "WP Map Block (Classic)"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "The original map block, kept for existing content. Fully editable."
+msgstr ""
+
+#: build/legacy.js:1
+msgid "google map"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "openstreet map"
+msgstr ""
+
+#: build/legacy.js:1
+msgid "Export Block Settings"
 msgstr ""

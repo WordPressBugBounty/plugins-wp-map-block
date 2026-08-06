@@ -1,0 +1,626 @@
+/* Frontend map + marker + popup + store-locator styling. */
+.wpmb-map {
+	position: relative;
+	overflow: hidden;
+	border-radius: 8px;
+}
+
+/* Teardrop pin (default / colored). */
+.wpmb-pin {
+	width: 22px;
+	height: 22px;
+	background: var(--wpmb-pin-color, #006bff);
+	border: 2px solid #fff;
+	border-radius: 50% 50% 0 50%;
+	transform: rotate(45deg);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+	cursor: pointer;
+}
+.wpmb-pin:not(.wpmb-pin-image)::after {
+	content: '';
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	width: 6px;
+	height: 6px;
+	background: #fff;
+	border-radius: 50%;
+}
+
+/* Custom image pin. */
+.wpmb-pin.wpmb-pin-image {
+	background: transparent;
+	border: none;
+	transform: none;
+	box-shadow: none;
+	width: 34px;
+	height: 34px;
+	border-radius: 0;
+}
+.wpmb-pin.wpmb-pin-image img {
+	width: 100%;
+	height: 100%;
+	-o-object-fit: contain;
+	   object-fit: contain;
+	filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+/* Unified marker element (SVG pin or custom image). */
+.wpmb-marker {
+	cursor: pointer;
+	line-height: 0;
+}
+.wpmb-marker img {
+	display: block;
+	filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+.wpmb-marker-image img {
+	border-radius: 8px;
+	background: #fff;
+	-o-object-fit: contain;
+	   object-fit: contain;
+}
+
+/* Marker animations. Applied to the <img> so they never fight the engine's
+ * positioning transform on the marker container. */
+@keyframes wpmb-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes wpmb-drop { 0% { transform: translateY(-180px); opacity: 0; } 60% { transform: translateY(0); opacity: 1; } 78% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
+@keyframes wpmb-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.16); } }
+.wpmb-anim-bounce img { animation: wpmb-bounce 1s ease-in-out infinite; }
+.wpmb-anim-drop img { animation: wpmb-drop 0.6s ease-out 1; }
+.wpmb-anim-pulse img { animation: wpmb-pulse 1.2s ease-in-out infinite; transform-origin: center bottom; }
+@media (prefers-reduced-motion: reduce) {
+	.wpmb-anim-bounce img, .wpmb-anim-drop img, .wpmb-anim-pulse img { animation: none; }
+}
+
+/* ═══ Marker popups — preset system ═══════════════════════════════════════
+ * One card, five presets (card/overlay/compact/minimal/classic). The provider
+ * container is reset so our card fills it edge-to-edge; presets + dark theme are
+ * driven by classes from src/engine/popup.js. */
+
+/* Provider container resets. */
+.maplibregl-popup-content {
+	padding: 0 !important;
+	border-radius: 14px !important;
+	box-shadow: 0 12px 34px rgba(2, 20, 46, 0.2) !important;
+	border: none !important;
+	overflow: hidden;
+}
+.maplibregl-popup-close-button {
+	width: 26px;
+	height: 26px;
+	top: 6px;
+	left: 6px;
+	border-radius: 999px;
+	color: #fff;
+	background: rgba(15, 23, 42, 0.45) !important;
+	font-size: 17px;
+	line-height: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.15s;
+}
+.maplibregl-popup-close-button:hover {
+	background: rgba(15, 23, 42, 0.72) !important;
+}
+.gm-style .gm-style-iw-c {
+	padding: 0 !important;
+	border-radius: 14px !important;
+	box-shadow: 0 12px 34px rgba(2, 20, 46, 0.2) !important;
+	overflow: hidden;
+}
+.gm-style .gm-style-iw-d {
+	overflow: hidden !important;
+	padding: 0 !important;
+}
+
+/* Base card. */
+.wpmb-popup {
+	position: relative;
+	width: 100%;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+	color: #1f2733;
+	background: #fff;
+	line-height: 1.45;
+	-webkit-font-smoothing: antialiased;
+}
+/* Span-based close control — a <span>, not a <button>, so the site theme's
+ * `button {}` styles can never override it. */
+.wpmb-popup .wpmb-popup-close {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 4;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 9px;
+	background: #fff;
+	color: #64748b;
+	font-size: 17px;
+	line-height: 1;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.06);
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	     user-select: none;
+	transition: background 0.15s, color 0.15s, transform 0.1s;
+}
+.wpmb-popup .wpmb-popup-close:hover {
+	background: #f1f5f9;
+	color: #0f172a;
+}
+.wpmb-popup .wpmb-popup-close:active {
+	transform: scale(0.94);
+}
+.wpmb-popup .wpmb-popup-close:focus-visible {
+	outline: 2px solid #fff;
+	outline-offset: 1px;
+}
+.wpmb-popup .wpmb-popup-media {
+	overflow: hidden;
+}
+.wpmb-popup .wpmb-popup-image {
+	display: block;
+	width: 100%;
+	height: 140px;
+	-o-object-fit: cover;
+	   object-fit: cover;
+}
+.wpmb-popup .wpmb-popup-body {
+	padding: 14px 16px 16px;
+}
+.wpmb-popup .wpmb-popup-title {
+	margin: 0 0 5px;
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+}
+.wpmb-popup .wpmb-popup-content {
+	font-size: 13px;
+	line-height: 1.5;
+	color: #5b6b83;
+}
+.wpmb-popup .wpmb-popup-content p {
+	margin: 0 0 6px;
+}
+.wpmb-popup .wpmb-popup-content > :last-child {
+	margin-bottom: 0;
+}
+/* No image header: the absolutely-positioned close control sits over the top of
+   the body, so reserve room on the right for it (26px control + 8px inset + gap)
+   and keep a sensible min-width so a short, title-only popup isn't cramped under
+   the close. Popups with an image put the close over the image, so they skip
+   this. */
+.wpmb-popup:not(.has-image) .wpmb-popup-body {
+	padding-left: 46px;
+}
+.wpmb-popup:not(.has-image) {
+	min-width: 140px;
+}
+.wpmb-popup .wpmb-popup-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin-top: 12px;
+}
+.wpmb-popup .wpmb-popup-cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: #006bff;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 600;
+	padding: 8px 14px;
+	border-radius: 9px;
+	text-decoration: none;
+	transition: background 0.15s, transform 0.15s;
+}
+.wpmb-popup .wpmb-popup-cta:hover {
+	background: #0057d1;
+}
+.wpmb-popup .wpmb-popup-cta-arrow {
+	transition: transform 0.15s;
+}
+.wpmb-popup .wpmb-popup-cta:hover .wpmb-popup-cta-arrow {
+	transform: translateX(-3px);
+}
+
+/* Preset: overlay — text over the photo. */
+.wpmb-popup--overlay {
+	position: relative;
+}
+.wpmb-popup--overlay .wpmb-popup-image {
+	height: 190px;
+}
+.wpmb-popup--overlay .wpmb-popup-scrim {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: flex-end;
+	background: linear-gradient(to top, rgba(6, 15, 32, 0.9) 0%, rgba(6, 15, 32, 0.28) 55%, rgba(6, 15, 32, 0) 100%);
+}
+.wpmb-popup--overlay .wpmb-popup-body,
+.wpmb-popup--overlay .wpmb-popup-title {
+	color: #fff;
+}
+.wpmb-popup--overlay .wpmb-popup-content {
+	color: rgba(255, 255, 255, 0.9);
+}
+
+/* Preset: compact — thumbnail beside text. */
+.wpmb-popup--compact.has-image {
+	display: flex;
+	align-items: stretch;
+}
+.wpmb-popup--compact .wpmb-popup-media {
+	flex: 0 0 92px;
+}
+.wpmb-popup--compact .wpmb-popup-image {
+	width: 92px;
+	height: 100%;
+	min-height: 92px;
+}
+.wpmb-popup--compact .wpmb-popup-body {
+	flex: 1;
+	min-width: 0;
+	padding: 12px 14px;
+}
+.wpmb-popup--compact .wpmb-popup-actions {
+	margin-top: 8px;
+}
+
+/* Preset: minimal — no image, accent bar. */
+.wpmb-popup--minimal .wpmb-popup-media {
+	display: none;
+}
+.wpmb-popup--minimal .wpmb-popup-body {
+	padding: 14px 16px;
+	border-right: 3px solid #006bff;
+}
+.wpmb-popup--minimal .wpmb-popup-cta {
+	background: none;
+	color: #006bff;
+	padding: 0;
+}
+.wpmb-popup--minimal .wpmb-popup-cta:hover {
+	background: none;
+	text-decoration: underline;
+}
+
+/* Preset: classic — the original simple look. */
+.wpmb-popup--classic .wpmb-popup-media {
+	padding: 12px 12px 0;
+}
+.wpmb-popup--classic .wpmb-popup-image {
+	height: auto;
+	max-height: 150px;
+	border-radius: 8px;
+}
+.wpmb-popup--classic .wpmb-popup-body {
+	padding: 10px 12px 12px;
+}
+.wpmb-popup--classic .wpmb-popup-title {
+	font-size: 14px;
+	font-weight: 600;
+}
+.wpmb-popup--classic .wpmb-popup-cta {
+	background: none;
+	color: #006bff;
+	padding: 0;
+}
+.wpmb-popup--classic .wpmb-popup-cta:hover {
+	background: none;
+	text-decoration: underline;
+}
+
+/* Dark theme (all presets). */
+.wpmb-popup--dark {
+	background: #141b26;
+	color: #e7edf5;
+}
+.wpmb-popup--dark .wpmb-popup-close {
+	background: #223042;
+	color: #b8c4d6;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+.wpmb-popup--dark .wpmb-popup-close:hover {
+	background: #2c3d52;
+	color: #fff;
+}
+.wpmb-popup--dark .wpmb-popup-title {
+	color: #fff;
+}
+.wpmb-popup--dark .wpmb-popup-content {
+	color: #9db0c7;
+}
+.wpmb-popup--dark.wpmb-popup--minimal .wpmb-popup-body {
+	border-right-color: #4d94ff;
+}
+.wpmb-mlpopup--dark .maplibregl-popup-content {
+	background: #141b26 !important;
+}
+.wpmb-mlpopup--dark .maplibregl-popup-tip {
+	border-top-color: #141b26 !important;
+	border-bottom-color: #141b26 !important;
+}
+
+/* Store locator overlay. */
+.wpmb-sl {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 5;
+	width: 260px;
+	max-width: calc(100% - 20px);
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+	overflow: hidden;
+	font-size: 13px;
+}
+.wpmb-sl-form {
+	display: flex;
+	gap: 6px;
+	padding: 8px;
+}
+.wpmb-sl-input {
+	flex: 1;
+	min-width: 0;
+	border: 1px solid #cbd1d7;
+	border-radius: 6px;
+	padding: 6px 8px;
+	font-size: 13px;
+}
+.wpmb-sl-btn {
+	background: #006bff;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	padding: 6px 10px;
+	cursor: pointer;
+	font-size: 13px;
+}
+.wpmb-sl-list {
+	max-height: 220px;
+	overflow-y: auto;
+	border-top: 1px solid #eef0f2;
+}
+.wpmb-sl-item {
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 8px 10px;
+	cursor: pointer;
+	border-bottom: 1px solid #f3f4f6;
+}
+.wpmb-sl-item:hover {
+	background: #f6f7f8;
+}
+.wpmb-sl-dist {
+	color: #738496;
+	white-space: nowrap;
+}
+
+/* Store-locator "use my location" button. */
+.wpmb-sl-geo {
+	flex: 0 0 auto;
+	background: #fff;
+	color: #006bff;
+	border: 1px solid #cbd1d7;
+	border-radius: 6px;
+	padding: 6px 8px;
+	cursor: pointer;
+	font-size: 13px;
+	line-height: 1;
+}
+.wpmb-sl-geo:hover {
+	background: #f6f7f8;
+}
+.wpmb-sl-geo:disabled {
+	opacity: 0.6;
+	cursor: default;
+}
+
+/* Directions link inside a marker popup — secondary action beside the CTA. */
+.wpmb-popup .wpmb-popup-dir {
+	display: inline-flex;
+	align-items: center;
+	padding: 7px 13px;
+	border-radius: 9px;
+	background: transparent;
+	border: 1px solid #d5dce6;
+	color: #33475b;
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	line-height: 1.3;
+	transition: border-color 0.15s, color 0.15s;
+}
+.wpmb-popup .wpmb-popup-dir:hover {
+	border-color: #006bff;
+	color: #006bff;
+}
+.wpmb-popup--overlay .wpmb-popup-dir,
+.wpmb-popup--dark .wpmb-popup-dir {
+	border-color: rgba(255, 255, 255, 0.4);
+	color: #fff;
+}
+.wpmb-popup--overlay .wpmb-popup-dir:hover,
+.wpmb-popup--dark .wpmb-popup-dir:hover {
+	border-color: #fff;
+	color: #fff;
+	background: rgba(255, 255, 255, 0.12);
+}
+
+/* Directory panel. */
+.wpmb-dir {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 5;
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14);
+	font-size: 13px;
+	overflow: hidden;
+	max-width: 100%;
+}
+.wpmb-dir-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 9px 12px;
+	border-bottom: 1px solid #eef1f4;
+	background: #fff;
+	flex: none;
+}
+.wpmb-dir-heading {
+	font-weight: 600;
+	font-size: 13px;
+	color: #1a2330;
+}
+.wpmb-dir-toggle {
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	font-size: 14px;
+	line-height: 1;
+	color: #5a6675;
+	padding: 2px 6px;
+}
+.wpmb-dir-toggle:hover {
+	color: #006bff;
+}
+/* Collapsed: only the header shows; the panel shrinks to fit it. */
+.wpmb-dir.is-collapsed {
+	bottom: auto;
+}
+.wpmb-dir.is-collapsed .wpmb-dir-search,
+.wpmb-dir.is-collapsed .wpmb-dir-chips,
+.wpmb-dir.is-collapsed .wpmb-dir-list {
+	display: none;
+}
+.wpmb-dir-search {
+	margin: 10px 10px 0;
+	border: 1px solid #cbd1d7;
+	border-radius: 6px;
+	padding: 7px 9px;
+	font-size: 13px;
+}
+.wpmb-dir-search:focus {
+	outline: none;
+	border-color: #006bff;
+}
+.wpmb-dir-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	padding: 10px 10px 0;
+}
+.wpmb-dir-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	background: #f2f4f7;
+	border: 1px solid transparent;
+	border-radius: 999px;
+	padding: 4px 10px;
+	font-size: 12px;
+	color: #33404d;
+	cursor: pointer;
+	line-height: 1.4;
+}
+.wpmb-dir-chip:hover {
+	background: #e8ecf1;
+}
+.wpmb-dir-chip.is-active {
+	background: #e6f0ff;
+	border-color: #006bff;
+	color: #006bff;
+	font-weight: 600;
+}
+.wpmb-dir-list {
+	flex: 1;
+	overflow-y: auto;
+	padding: 6px 0;
+}
+.wpmb-dir-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 9px;
+	padding: 9px 12px;
+	cursor: pointer;
+	border-bottom: 1px solid #f3f4f6;
+}
+.wpmb-dir-item:hover {
+	background: #f6f7f8;
+}
+.wpmb-dir-dot {
+	flex: 0 0 auto;
+	width: 10px;
+	height: 10px;
+	margin-top: 3px;
+	border-radius: 50%;
+	background: #006bff;
+}
+.wpmb-dir-item-body {
+	min-width: 0;
+}
+.wpmb-dir-title {
+	font-weight: 600;
+	color: #1f2a37;
+	line-height: 1.3;
+}
+.wpmb-dir-snippet {
+	color: #6b7280;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	margin-top: 2px;
+}
+.wpmb-dir-empty {
+	padding: 16px 12px;
+	color: #9aa4b0;
+	text-align: center;
+}
+
+/* Bottom-strip layout modifier. */
+.wpmb-dir--bottom {
+	top: auto;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	height: 140px;
+	flex-direction: column;
+	width: 100% !important;
+}
+.wpmb-dir--bottom .wpmb-dir-list {
+	display: flex;
+	flex-direction: row;
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 8px 10px;
+	gap: 8px;
+}
+.wpmb-dir--bottom .wpmb-dir-item {
+	flex: 0 0 auto;
+	width: 200px;
+	border-bottom: none;
+	border: 1px solid #eef0f2;
+	border-radius: 8px;
+	background: #fff;
+}
+.wpmb-dir--bottom .wpmb-dir-snippet {
+	white-space: normal;
+}
+

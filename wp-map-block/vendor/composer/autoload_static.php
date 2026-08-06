@@ -4,20 +4,10 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbe3db2d676c181a3b9224208305ef034
+class ComposerStaticInitdf211e9ddb284659da8131690c828aef
 {
-    public static $prefixLengthsPsr4 = array (
-        'W' => 
-        array (
-            'WPMapBlock\\' => 11,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'WPMapBlock\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/includes',
-        ),
+    public static $files = array (
+        'f1ae818e1da44f578bbc5ae74a90afde' => __DIR__ . '/..' . '/storeengine/wordpress-sdk/init.php',
     );
 
     public static $classMap = array (
@@ -27,9 +17,7 @@ class ComposerStaticInitbe3db2d676c181a3b9224208305ef034
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbe3db2d676c181a3b9224208305ef034::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbe3db2d676c181a3b9224208305ef034::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbe3db2d676c181a3b9224208305ef034::$classMap;
+            $loader->classMap = ComposerStaticInitdf211e9ddb284659da8131690c828aef::$classMap;
 
         }, null, ClassLoader::class);
     }

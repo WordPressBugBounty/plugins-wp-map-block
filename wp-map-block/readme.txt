@@ -1,54 +1,37 @@
-=== WP Map Block - Gutenberg Map Block for Google Map and OpenStreet Map by aBlocks ===
+=== WP Map Block ===
 Contributors: tusharimran, academylms
 Donate link: https://www.buymeacoffee.com/academylms
-Tags: block, map block, google maps, ablocks, gutenberg,
+Tags: map block, openstreetmap, store locator, markers, maps
 Requires at least: 6.5
-Tested up to: 6.8
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.4
-License: GPLv3
-License URI: https://opensource.org/licenses/GPL-3.0
+Stable tag: 3.0.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 No API key is required to launch Google Maps & OpenStreetMap.
 
 == Description ==
 
-**Important Announcement:** The WP Map Block plugin has officially merged with **[aBlocks](https://wordpress.org/plugins/ablocks)**. It’s an innovative and comprehensive Gutenberg blocks builder for WordPress. Now, you can enjoy enhanced mapping options alongside a wide range of customizable blocks. All within a single, powerful plugin aBlocks. [Here's how to Migrate WP Map Block to aBlocks!](https://academylms.net/how-to-use-wp-map-block/)
+**WP Map Block is an all-in-one interactive map builder for WordPress.** Build a map visually — drop markers, draw regions, pull live locations from your content — then publish anywhere with a Gutenberg block or a shortcode. No API key is required to get started with OpenStreetMap or Google Maps.
 
-==Why Switch to aBlocks?==
-As a valued WP Map Block user, you’ll benefit from this upgrade in several ways:
+Design your map on a live canvas, choose from nine map providers, and add everything from a single pin to a full store locator. It’s the fastest way to put your locations on the map, whether you need a simple contact map or a data-driven directory.
 
-Enhanced Mapping Features: Experience all the functionalities you loved in WP Map Block. The interactive maps with Google Maps and OpenStreetMap are now integrated into the powerful aBlocks framework.
-More Customization Options: With aBlocks, you have the access to an extensive library of blocks that allow you to create stunning layouts and designs beyond just maps. You can create a complete website with advanced customization options.
-User-Friendly Interface: The intuitive Gutenberg editor in aBlocks makes it easier than ever to add and customize maps and other blocks without any coding knowledge.
-Responsive Design: Ensure your maps and content look great on any device with built-in responsive settings.
+**Why you’ll love WP Map Block:**
 
-**Key Features of aBlocks:**
+Visual builder: Design on a live preview with place search, drag-to-reposition markers and instant feedback — no code needed.
+Nine map providers: OpenStreetMap and Google Maps are free; Mapbox, MapTiler, OpenFreeMap, Stadia, Esri, CARTO and Azure add even more styles, plus Road, Satellite, Hybrid and Terrain views.
+Rich markers: Unlimited markers with categories, a custom icon library, popup images, and bounce / drop / pulse animations.
+Dynamic &amp; scalable: Auto-plot posts, custom post types, ACF fields and REST sources; cluster thousands of points or render them as a heatmap.
+Store locator &amp; directory: Radius search, geolocation, filters and a browsable, collapsible list — turn any map into a locator.
+Backward compatible: Every existing map keeps working, and you can import/export maps as JSON, CSV, KML or GPX.
 
-Customizable Blocks: Explore various blocks designed for different content types, including container, headings, text & color customization and even more.
-Interactive Maps: Easily embed Google Maps or OpenStreetMap with customizable options and animations that enhance user engagement.
-Performance Optimized: Enjoy fast load times and smooth operation with aBlocks lightweight design.
+**Most convenient way to add Google Maps &amp; OpenStreetMap in Gutenberg.**
 
-== Transferring from WP Map Block to aBlocks ==
+WP Map Block gives you a clean, straightforward interface to add and customize maps for Gutenberg-supported posts, pages and custom post types — without wrestling with API keys or heavy configuration.
 
-If you were using WP Map Block, you can transfer to aBlocks uninterrupted. Simply install the aBlocks plugin from the WordPress directory. You’ll see a button “Convert to Map Block” in the section where you used the WP Map Block. Simply click it and all your existing map configurations will be automatically transferred. You’ll retain your map settings while gaining access to new and advanced customization options.
-
-
-You can use the map block the same way you've used it before for Google Maps and OpenStreetMap.
-
-The new Map Block offers a simple user interface that allows you to add Google Maps and OpenStreetMap to your WordPress site. This plugin is built with LeafletJS, an open-source JavaScript library for mobile-friendly interactive maps. This straightforward Map option for your website with advanced settings of aBlocks.
-
-It is the ideal solution for you if you’re using the Gutenberg editor and require a map on your site. Using aBlocks, you can easily customize Google Maps or OpenStreetMap for Gutenberg-supported posts, pages, or custom post types for your WordPress site.
-
-
-**Most Convenient Way to utilize Gutenberg Map block for Google Maps & OpenStreet Maps.**
-
-WP Map Block offers a simple user interface that allows you to add Google Maps to your WordPress site. This amazing plugin is built with <a href="https://leafletjs.com/" target="_blank">LeafletJS</a>, an open-source JavaScript library for mobile-friendly interactive maps. There are no fluff and redundant settings and a straightforward Map option for your Gutenberg block.
-
-WP Map Block is the ideal solution for you if you're using the Gutenberg editor and require a map on your site. Using this plugin, you can easily customize Google Maps or OpenStreetMap for Gutenberg-supported posts, pages, or custom post types for your WordPress site.
-
-⭐ [Live Demo](https://academylms.net/wp-map-block/)
-⭐ [Docs](https://academylms.net/how-to-use-wp-map-block/)
+⭐ [Live Demo](https://wpmapblock.com/demo/)
+⭐ [Docs](https://wpmapblock.com/docs/)
 
 = Plugin Features ✅ =
 * Google Maps
@@ -97,16 +80,15 @@ Install WP Map Block for Gutenberg either via the WordPress plugin directory or 
 If you like WP-Map-Block, then consider checking out our other WordPress Plugins for FREE:
 
 🔝 [Academy LMS](https://academylms.net) – Academy LMS is a modern, lightweight LMS plugin for WordPress. It helps users create and sell online courses, manage instructors, track student progress, quizzes, and more — all inside WordPress.
-🔝 [aBlocks](https://ablocks.pro) – aBlocks is a powerful Gutenberg-based WordPress website builder and a clean alternative to Elementor. It provides custom blocks and design flexibility while keeping your website fast and bloat-free.
 🔝 [StoreEngine](https://storeengine.pro) – StoreEngine is an all-in-one, next-gen eCommerce plugin for WordPress. It’s designed to make selling digital products, courses, memberships, and even physical goods easier than ever.
 
 
-## 💙 Join the aBlocks Community ##
-Don’t miss out on the opportunity to elevate your WordPress site with aBlocks. Experience enhanced mapping capabilities along with a suite of powerful design tools. Install aBlocks today and unlock the full potential of your website!
+## 💙 Join the WP Map Block Community ##
+Get help, share your maps and hear about new features first.
 
-- Like on our [aBlocks Website](https://ablocks.pro/)
-- Join our [aBlocks Facebook Page](https://www.facebook.com/profile.php?id=61560040810557)
-- Join our [aBlocks Community Group](https://www.facebook.com/groups/386840187678401/)
+- Visit the [WP Map Block website](https://wpmapblock.com/)
+- Read the [documentation](https://wpmapblock.com/docs/)
+- Get [support](https://wpmapblock.com/support/)
 
 
 == Frequently Asked Questions ==
@@ -144,6 +126,25 @@ Change the way you are writing the address or make it more specific. Make sure t
 
 
 == Changelog ==
+
+= 3.0.0 – 2026-08-03 =
+Major release — WP Map Block is now an all-in-one visual map builder.
+
+- Added: Brand-new visual map builder with a live preview (build maps once, embed anywhere)
+- Added: 9 map providers — OpenStreetMap, Google Maps, Mapbox, MapTiler, OpenFreeMap, Stadia, Esri/ArcGIS, CARTO and Azure Maps
+- Added: Map types — Road, Satellite, Hybrid and Terrain (works across providers)
+- Added: Place/address search with autocomplete to set the map center or drop markers
+- Added: Markers — categories, custom icon library, popup images, marker animations (bounce/drop/pulse) and draggable markers
+- Added: Polygons & polylines with click-to-draw on the map
+- Added: Marker clustering and heatmaps
+- Added: Dynamic data sources — populate markers from posts, custom post types, ACF fields, GeoJSON and REST endpoints
+- Added: Store locator with radius search and geolocation, plus a browsable, collapsible directory/list
+- Added: Directions & routing links, and Google traffic/transit/bicycle layers
+- Added: Import/Export — JSON, CSV, KML and GPX
+- Added: Simple map block gains multiple markers, width, scroll-wheel zoom and center-marker controls
+- Added: Light/dark admin, setup wizard, What's New and a redesigned Settings page
+- Changed: OpenStreetMap and Google Maps remain free; premium providers and advanced features move to Pro
+- Compatibility: The classic `wp-map-block` block and all existing maps keep working unchanged — no data is lost on upgrade
 
 = 2.0.4 – 2025-11-04 =
 - Fixed: Security Issue

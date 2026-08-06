@@ -1,5 +1,106 @@
 {
-    "packages": [],
-    "dev": true,
+    "packages": [
+        {
+            "name": "storeengine/wordpress-sdk",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "/Users/tusharimran/Herd/storeengine-wordpress-sdk",
+                "reference": "f39fc2f64d450290ee266178c248bfc6111a9105"
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+                "phpcompatibility/php-compatibility": "^9.3",
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpstan/extension-installer": "^1.4",
+                "squizlabs/php_codesniffer": "^3.9",
+                "szepeviktor/phpstan-wordpress": "^2.0",
+                "wp-coding-standards/wpcs": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "scripts-description": {
+                    "phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
+                    "phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier",
+                    "phpstan": "Analyze code with static analyser"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "init.php"
+                ]
+            },
+            "scripts": {
+                "phpcs": [
+                    "Composer\\Config::disableProcessTimeout",
+                    "phpcs -p -s --colors"
+                ],
+                "phpcs-pre-commit": [
+                    "Composer\\Config::disableProcessTimeout",
+                    "phpcs -s -p -n"
+                ],
+                "phpcbf": [
+                    "Composer\\Config::disableProcessTimeout",
+                    "phpcbf -p"
+                ],
+                "phpcs:ci": [
+                    "Composer\\Config::disableProcessTimeout",
+                    "phpcs --standard=phpcompat.xml -p -s --colors"
+                ],
+                "phpstan": [
+                    "./vendor/bin/phpstan analyse phpstan.neon --memory-limit 2G"
+                ]
+            },
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Kodezen Limited",
+                    "email": "support@kodezen.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Kudratullah",
+                    "email": "hi@kudratullah.dev",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Official StoreEngine SDK for WordPress licensing and telemetry insights.",
+            "homepage": "https://storeengine.pro",
+            "keywords": [
+                "insights",
+                "license",
+                "plugin",
+                "sdk",
+                "storeengine",
+                "theme",
+                "wordpress",
+                "wordpress-plugin",
+                "wordpress-theme"
+            ],
+            "support": {
+                "source": "https://github.com/imrantushar/storeengine-sdk-for-wordpress",
+                "issues": "https://github.com/imrantushar/storeengine-sdk-for-wordpress/issues"
+            },
+            "funding": [
+                {
+                    "type": "custom",
+                    "url": "https://storeengine.pro"
+                }
+            ],
+            "transport-options": {
+                "symlink": false,
+                "relative": false
+            },
+            "install-path": "../storeengine/wordpress-sdk"
+        }
+    ],
+    "dev": false,
     "dev-package-names": []
 }
