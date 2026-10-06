@@ -17,6 +17,9 @@ if (!defined('ABSPATH')) {
  */
 class Block
 {
+    /** Cache key for the content scan behind the admin's "Classic maps" list. */
+    const SCAN_TRANSIENT = 'wpmb_classic_maps_scan';
+
     private static function legacy_uri()
     {
         return WPMAPBLOCK_ASSETS_URI . 'legacy/';
@@ -32,6 +35,116 @@ class Block
         add_action('init', [self::class, 'register_assets']);
         add_action('init', [self::class, 'register_block']);
         add_action('wp_enqueue_scripts', [self::class, 'register_core_scripts']);
+        // Editing content can add or remove a classic block, so drop the scan.
+        add_action('save_post', [self::class, 'flush_scan']);
+        add_action('deleted_post', [self::class, 'flush_scan']);
+    }
+
+    public static function flush_scan()
+    {
+        delete_transient(self::SCAN_TRANSIENT);
+    }
+
+    /**
+     * Every classic block still embedded in site content, as the admin's
+     * "Classic maps" list shows them.
+     *
+     * Classic maps are block attributes inside post_content, never `wpmb_map`
+     * posts — so nothing in the admin ever listed them. A site upgrading from
+     * 2.x opened an empty map library even though its pages were full of maps,
+     * which reads as "my maps are gone".
+     *
+     * @param int $limit Most posts to scan.
+     * @return array<int,array>
+     */
+    public static function find_in_content($limit = 200)
+    {
+        // Cache the whole scan, then filter per viewer — caching the filtered
+        // result would leak the first caller's visible posts to everyone else.
+        return array_values(array_filter(
+            self::scan($limit),
+            static function ($item) {
+                return current_user_can('edit_post', $item['postId']);
+            }
+        ));
+    }
+
+    private static function scan($limit)
+    {
+        $cached = get_transient(self::SCAN_TRANSIENT);
+        if (is_array($cached)) {
+            return $cached;
+        }
+
+        global $wpdb;
+        // A LIKE scan is unavoidable — this data only exists inside post_content.
+        // It is capped, cached for a few minutes, and invalidated on save.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- no post meta/taxonomy to query instead; result is cached in a transient above.
+        $ids = $wpdb->get_col(
+            $wpdb->prepare(
+                "SELECT ID FROM {$wpdb->posts}
+                 WHERE post_status NOT IN ('trash', 'auto-draft', 'inherit')
+                   AND post_content LIKE %s
+                 ORDER BY post_modified DESC
+                 LIMIT %d",
+                '%' . $wpdb->esc_like('wp:wpmapblock/wp-map-block') . '%',
+                (int) $limit
+            )
+        );
+
+        $found = [];
+        foreach ($ids as $id) {
+            $post = get_post($id);
+            if (!$post) {
+                continue;
+            }
+            $index = 0;
+            foreach (self::collect_blocks(parse_blocks($post->post_content)) as $block) {
+                $found[] = self::summarize($post, isset($block['attrs']) ? $block['attrs'] : [], $index++);
+            }
+        }
+
+        set_transient(self::SCAN_TRANSIENT, $found, 5 * MINUTE_IN_SECONDS);
+        return $found;
+    }
+
+    /** Walk nested blocks — a classic map can sit inside a group or columns. */
+    private static function collect_blocks($blocks)
+    {
+        $out = [];
+        foreach ($blocks as $block) {
+            if (isset($block['blockName']) && 'wpmapblock/wp-map-block' === $block['blockName']) {
+                $out[] = $block;
+            }
+            if (!empty($block['innerBlocks'])) {
+                $out = array_merge($out, self::collect_blocks($block['innerBlocks']));
+            }
+        }
+        return $out;
+    }
+
+    private static function summarize($post, $attrs, $index)
+    {
+        $markers = isset($attrs['map_marker_list']) && is_array($attrs['map_marker_list'])
+            ? $attrs['map_marker_list']
+            : [];
+        $first     = $markers ? reset($markers) : [];
+        $type      = isset($attrs['map_type']) ? $attrs['map_type'] : 'GM';
+        $post_type = get_post_type_object($post->post_type);
+
+        return [
+            'postId'    => (int) $post->ID,
+            'postTitle' => '' !== $post->post_title ? $post->post_title : __('(no title)', 'wp-map-block'),
+            'postType'  => $post_type ? $post_type->labels->singular_name : $post->post_type,
+            'status'    => $post->post_status,
+            'index'     => (int) $index,
+            'title'     => isset($first['title']) ? (string) $first['title'] : '',
+            'markers'   => count($markers),
+            'provider'  => 'OSM' === $type
+                ? __('OpenStreetMap', 'wp-map-block')
+                : __('Google Maps', 'wp-map-block'),
+            'editUrl'   => get_edit_post_link($post->ID, 'raw'),
+        ];
     }
 
     public static function register_core_scripts()
@@ -69,16 +182,23 @@ class Block
                 true
             );
             // Leaflet's stylesheet (bundled from the editor JS) — needed so the
-            // draggable map inside the marker modal is styled correctly.
+            // draggable map inside the marker modal is styled correctly. Depends
+            // on dashicons so the first-run picker's icons render inside the
+            // editor canvas iframe, which does not inherit wp-admin's styles.
             if (file_exists(WPMAPBLOCK_BUILD_DIR_PATH . 'legacy.css')) {
-                wp_register_style('wpmb-legacy-edit', WPMAPBLOCK_BUILD_URI . 'legacy.css', [], $legacy_edit['version']);
+                wp_register_style('wpmb-legacy-edit', WPMAPBLOCK_BUILD_URI . 'legacy.css', ['dashicons'], $legacy_edit['version']);
             }
             wp_set_script_translations('wpmb-legacy-edit', 'wp-map-block');
             wp_localize_script('wpmb-legacy-edit', 'WPMB_LEGACY', [
                 'ajaxUrl'       => admin_url('admin-ajax.php'),
                 'previewNonce'  => wp_create_nonce('wpmb_preview'),
                 'markerIconUrl' => self::legacy_uri() . 'images/marker-icon.png',
+                // Deep link into the builder, for the "upgrade this map" path.
+                'adminUrl'      => admin_url('admin.php?page=wp-map-block'),
             ]);
+            // Shared first-run picker config (same as the modern block), so a
+            // freshly inserted classic block offers the same chooser + upsell.
+            wp_localize_script('wpmb-legacy-edit', 'WPMB_PICKER', \WPMapBlock\Blocks\Embed_Block::picker_config());
         }
     }
 
@@ -111,11 +231,30 @@ class Block
         foreach ($array as $key => &$value) {
             if (is_array($value)) {
                 $value = self::escaping_array_data($value);
+            } elseif ('content' === $key) {
+                $value = self::escape_marker_content($value);
             } else {
                 $value = esc_attr(sanitize_text_field($value));
             }
         }
         return $array;
+    }
+
+    /**
+     * Marker text is typed into a textarea, so it can contain line breaks — but
+     * `sanitize_text_field()` flattens them into spaces, and the popup builds its
+     * HTML as `<p>{content}</p>`, where a bare newline collapses anyway. So the
+     * author's paragraphs were lost twice over.
+     *
+     * Keep the newlines (`sanitize_textarea_field`), escape the text, and only
+     * THEN insert `<br>` — inserting it earlier would get the tag escaped along
+     * with the rest. The `<br>` survives `wp_json_encode()`'s JSON_HEX_TAG pass
+     * as `<br>`, so it reaches the popup as real markup while every
+     * character the author typed stays inert text.
+     */
+    private static function escape_marker_content($value)
+    {
+        return nl2br(esc_attr(sanitize_textarea_field($value)), false);
     }
 
     public static function render_callback($attributes, $content = '')

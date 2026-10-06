@@ -6,7 +6,7 @@
  * Description: All-in-one interactive map builder for WordPress. Build maps visually with markers, categories, clustering, shapes and dynamic data across Google Maps, OpenStreetMap, Mapbox, MapTiler, Esri and more — no API key to start.
  * Author: Kodezen
  * Author URI: https://kodezen.com/
- * Version: 3.0.0
+ * Version: 3.1.0
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * License: GPL2+
@@ -79,7 +79,7 @@ if (!class_exists('WPMapBlock')) {
 
         public function define_constant()
         {
-            define('WPMAPBLOCK_VERSION', '3.0.0');
+            define('WPMAPBLOCK_VERSION', '3.1.0');
             define('WPMAPBLOCK_PLUGIN_FILE', __FILE__);
             define('WPMAPBLOCK_PLUGIN_BASENAME', plugin_basename(__FILE__));
             define('WPMAPBLOCK_PLUGIN_SLUG', 'wp-map-block');

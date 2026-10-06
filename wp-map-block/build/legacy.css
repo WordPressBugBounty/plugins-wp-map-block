@@ -658,6 +658,25 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	max-width: 95vw;
 }
 
+/* Vertical rhythm.
+ *
+ * Every control in this modal passes `__nextHasNoMarginBottom`, which strips
+ * WordPress's own spacing — so without this the fields sit flush against each
+ * other and each label touches the field above it, which is what made the modal
+ * look broken. Spacing lives on the columns as a flex gap rather than on the
+ * controls, so the side-by-side lat/lng row counts as one item and nothing
+ * double-spaces. */
+.wp-map-block-modal .entry-left {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+.wp-map-block-modal-panel__body {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
 /* Two columns that never wrap unexpectedly; stack on small screens. */
 .wp-map-block-modal__body {
 	display: grid;
@@ -678,7 +697,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 /* Place search */
 .wp-map-block-modal-place-search {
 	position: relative;
-	margin-bottom: 12px;
 }
 .wp-map-block-modal-place-search__input {
 	width: 100%;
@@ -721,6 +739,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	background: #f0f6ff;
 }
 
+/* The place search sits directly above the map, so it owns that gap itself. */
+.wp-map-block-modal-location-search {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 /* Map + helper note */
 .wp-map-block-modal-location-search__map {
 	position: relative;
@@ -746,7 +771,14 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .wp-map-block-modal-panel__title {
 	font-size: 14px;
 	font-weight: 600;
-	margin: 0 0 12px;
+	margin: 0 0 14px;
+}
+/* The custom-icon controls appear inside a fragment, so they need their own
+   rhythm rather than inheriting the panel body's gap. */
+.wp-map-block-modal-panel__icon-size {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 }
 .wp-map-block-modal-panel__icon-size img {
 	display: block;

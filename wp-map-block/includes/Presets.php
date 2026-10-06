@@ -29,6 +29,36 @@ class Presets
         ];
     }
 
+    /**
+     * The same list without the (large) configs — for UIs that only need to SHOW
+     * the templates, such as the block editor, where every byte is localized
+     * into the page.
+     *
+     * @return array<int,array> [{ id, name, description, icon, features[] }]
+     */
+    public static function summaries()
+    {
+        return array_map(static function ($preset) {
+            unset($preset['config']);
+            return $preset;
+        }, self::all());
+    }
+
+    /**
+     * One preset by id.
+     *
+     * @return array|null
+     */
+    public static function find($id)
+    {
+        foreach (self::all() as $preset) {
+            if ($preset['id'] === $id) {
+                return $preset;
+            }
+        }
+        return null;
+    }
+
     private static function preset($id, $name, $description, $icon, $features, $config)
     {
         return [

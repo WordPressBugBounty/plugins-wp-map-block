@@ -7,7 +7,7 @@
             "dist": {
                 "type": "path",
                 "url": "/Users/tusharimran/Herd/storeengine-wordpress-sdk",
-                "reference": "f39fc2f64d450290ee266178c248bfc6111a9105"
+                "reference": "c2fd07992ea0fb79d9b64d4398c55e234a0922af"
             },
             "require": {
                 "php": ">=7.1"

@@ -1,11 +1,11 @@
-=== WP Map Block ===
+=== WP Map Block - Google Maps, OpenStreetMap, Mapbox, Store & Shop Locator, Directory, Listings & Filters ===
 Contributors: tusharimran, academylms
 Donate link: https://www.buymeacoffee.com/academylms
 Tags: map block, openstreetmap, store locator, markers, maps
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,7 +88,7 @@ Get help, share your maps and hear about new features first.
 
 - Visit the [WP Map Block website](https://wpmapblock.com/)
 - Read the [documentation](https://wpmapblock.com/docs/)
-- Get [support](https://wpmapblock.com/support/)
+- Get [support](https://community.kodezen.com/tickets/)
 
 
 == Frequently Asked Questions ==
@@ -118,14 +118,24 @@ No, there is no prerequisite for using this plugin. You can simply use this plug
 Change the way you are writing the address or make it more specific. Make sure that you input the street name, as well as the town name and the nation. For a more precise location, provide the latitude and longitude coordinates in the place of address.
 
 
-== Screenshots ==
-
-1. Google Map
-2. OpenStreet Map
-3. Custom Map Marker With Popup
 
 
 == Changelog ==
+
+= 3.1.0 – 2026-10-05 =
+Security and feature release.
+
+- Security: Fixed missing authorization on the map REST endpoints (CVE-2026-19798). The create, publish/unpublish, bulk and delete actions now enforce per-map capability checks (`edit_post`, `publish_post`, `delete_post`), so lower-privileged users (Contributor and above) can no longer create, publish, unpublish or delete maps they do not have the capability to manage.
+- Added: A first-run picker on both blocks — choose a Simple map, start from a template, use the Classic block, or embed a map you already built, right from the first screen.
+- Added: Pro features surfaced in the picker, each linking to the plan comparison, so you can see at a glance what Pro adds.
+- Added: A "No API key required" badge on the Classic map choice — a reminder that the keyless providers (OpenStreetMap and friends) work out of the box.
+- Added: The Classic map block is available in the inserter again, alongside the new block.
+- Added: Classic maps (still living inside post content from older versions) are now listed in the map library, with a one-click path to open and upgrade them.
+- Added: One-click upgrade from a simple or classic block into a fully configured saved map — markers, provider, zoom and size all carry over.
+- Fixed: Marker popups now keep their line breaks on both the new engine and the classic block.
+- Fixed: Cluster counts and clustered markers now render (with marker icons, category colours and animations) — no glyph server and no third-party font request, so the "no API key" promise holds.
+- Fixed: Spacing in the classic marker modal, and the Leaflet location picker now sizes correctly.
+- Fixed: A freshly created classic block no longer throws "Map container not found".
 
 = 3.0.0 – 2026-08-03 =
 Major release — WP Map Block is now an all-in-one visual map builder.

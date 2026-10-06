@@ -76,6 +76,39 @@ class Embed_Block
         exit;
     }
 
+    /**
+     * Config for the shared first-run picker (new block + classic block): the
+     * templates, a link into the builder, and the Pro catalog for the upsell.
+     * Localized as `window.WPMB_PICKER` on both editors so the chooser is
+     * identical wherever it appears.
+     */
+    public static function picker_config(): array
+    {
+        $pro      = \WPMapBlock\Pro::localized();
+        $catalog  = isset($pro['features']) && is_array($pro['features']) ? $pro['features'] : [];
+        $features = [];
+        foreach ($catalog as $slug => $meta) {
+            $features[] = [
+                'slug'      => $slug,
+                'title'     => isset($meta['title']) ? $meta['title'] : $slug,
+                'desc'      => isset($meta['desc']) ? $meta['desc'] : '',
+                'icon'      => isset($meta['icon']) ? $meta['icon'] : 'dashicons-lock',
+                'available' => !empty($meta['available']),
+            ];
+        }
+
+        return [
+            'presets' => \WPMapBlock\Presets::summaries(),
+            'newUrl'  => admin_url('admin.php?page=wp-map-block#/new'),
+            'pro'     => [
+                'active'     => !empty($pro['active']),
+                'upsell'     => !empty($pro['upsell']),
+                'compareUrl' => isset($pro['compareUrl']) ? $pro['compareUrl'] : admin_url('admin.php?page=wp-map-block-compare'),
+                'features'   => $features,
+            ],
+        ];
+    }
+
     public static function register()
     {
         $asset_file = WPMAPBLOCK_BUILD_DIR_PATH . 'embed.asset.php';
@@ -98,12 +131,29 @@ class Embed_Block
                 'premiumUnlocked'  => \WPMapBlock\Pro::has('premium-providers'),
                 'ajaxUrl'          => admin_url('admin-ajax.php'),
                 'previewNonce'     => wp_create_nonce('wpmb_preview'),
+                // Templates for the block's first-run screen. Without them the
+                // block opens on an empty chooser and nothing tells the author
+                // the builder exists at all.
+                'presets'          => \WPMapBlock\Presets::summaries(),
             ]);
+
+            // Shared first-run picker config — used by both this block and the
+            // classic block, so the chooser (and its Pro upsell) stays identical.
+            wp_localize_script('wpmb-embed-block', 'WPMB_PICKER', self::picker_config());
+        }
+
+        // The block editor canvas is its own iframe, which does not inherit
+        // wp-admin's stylesheets — so the icons on the block's first-run screen
+        // render as empty boxes unless dashicons is pulled in as a block style.
+        // A src-less handle is just the dependency, no extra request.
+        if (!wp_style_is('wpmb-embed-block', 'registered')) {
+            wp_register_style('wpmb-embed-block', false, ['dashicons'], WPMAPBLOCK_VERSION);
         }
 
         register_block_type('wpmapblock/map-embed', [
             'api_version'          => 3,
             'editor_script'        => 'wpmb-embed-block',
+            'editor_style'         => 'wpmb-embed-block',
             'attributes'      => [
                 'mode'  => ['type' => 'string', 'default' => ''],
                 'mapId' => ['type' => 'number', 'default' => 0],
@@ -144,6 +194,22 @@ class Embed_Block
      * (no CPT map needed).
      */
     private static function render_simple($a)
+    {
+        return Renderer::render_config(self::simple_config($a), 'wpmb-simple-' . wp_rand(1000, 999999));
+    }
+
+    /**
+     * Build the map config a simple block renders from.
+     *
+     * Public because it is also the "upgrade this block into a real map"
+     * conversion: the simple block and the classic block share this attribute
+     * shape, so promoting either into a saved map is exactly this config — which
+     * guarantees the saved map opens looking like the block it replaced.
+     *
+     * @param array $a Block attributes (simple or classic).
+     * @return array Sanitized config.
+     */
+    public static function simple_config($a)
     {
         // Provider from `map_type`; map legacy GM/OSM to provider slugs. Falls
         // back to the earlier `provider` attr for any pre-rename simple blocks.
@@ -195,12 +261,18 @@ class Embed_Block
         $config['controls']['scrollZoom'] = $scroll;
         $config['markers']               = $markers;
 
-        $config = Config::sanitize($config);
-        return Renderer::render_config($config, 'wpmb-simple-' . wp_rand(1000, 999999));
+        return Config::sanitize($config);
     }
 
     private static function simple_marker($m, $i)
     {
+        // The classic block stored custom pins as iconType/customIconUrl. Carry
+        // them across so converting a classic block into a real map keeps its
+        // pins instead of silently resetting them to the default marker.
+        $custom_icon = isset($m['iconType'], $m['customIconUrl']) && 'custom' === $m['iconType']
+            ? (string) $m['customIconUrl']
+            : '';
+
         return [
             'id'       => isset($m['id']) && $m['id'] !== '' ? (string) $m['id'] : 'mk_' . $i,
             'lat'      => (float) $m['lat'],
@@ -209,7 +281,12 @@ class Embed_Block
             'content'  => isset($m['content']) ? $m['content'] : '',
             'link'     => '',
             'category' => '',
-            'icon'     => ['type' => 'default', 'preset' => '', 'url' => '', 'color' => ''],
+            'icon'     => [
+                'type'   => $custom_icon ? 'image' : 'default',
+                'preset' => '',
+                'url'    => $custom_icon,
+                'color'  => '',
+            ],
         ];
     }
 }

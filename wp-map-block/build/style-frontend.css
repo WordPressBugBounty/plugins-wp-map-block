@@ -61,6 +61,31 @@
 	   object-fit: contain;
 }
 
+/* Cluster bubble. A DOM element rather than a map symbol layer: `text-field`
+ * needs the style to declare `glyphs`, which no raster provider does, so a
+ * layer-drawn count silently never rendered. Sized inline by point count. */
+.wpmb-cluster {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	border-radius: 50%;
+	background: #2563eb;
+	color: #fff;
+	font-weight: 700;
+	line-height: 1;
+	font-family: inherit;
+	cursor: pointer;
+	border: 2px solid rgba(255, 255, 255, 0.9);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	transition: transform 0.12s ease;
+}
+.wpmb-cluster:hover,
+.wpmb-cluster:focus-visible {
+	transform: scale(1.08);
+	outline: none;
+}
+
 /* Marker animations. Applied to the <img> so they never fight the engine's
  * positioning transform on the marker container. */
 @keyframes wpmb-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }

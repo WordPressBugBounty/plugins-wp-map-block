@@ -66,6 +66,23 @@ class Maps_Controller
             'permission_callback' => [self::class, 'can_edit'],
         ]);
 
+        // Promote a block into a real, saved map. The block editor posts the
+        // attributes of a "simple" or classic block and gets back a map that
+        // renders identically — the on-ramp from a one-off map into the builder.
+        register_rest_route($ns, '/maps/from-block', [
+            'methods'             => 'POST',
+            'callback'            => [self::class, 'create_from_block'],
+            'permission_callback' => [self::class, 'can_edit'],
+        ]);
+
+        // Classic blocks still sitting in post content. They are not `wpmb_map`
+        // posts, so the map library cannot see them without this.
+        register_rest_route($ns, '/legacy-maps', [
+            'methods'             => 'GET',
+            'callback'            => [self::class, 'legacy_maps'],
+            'permission_callback' => [self::class, 'can_edit'],
+        ]);
+
         // Bulk actions from the dashboard table: activate | deactivate | delete.
         register_rest_route($ns, '/maps/bulk', [
             'methods'             => 'POST',
@@ -119,9 +136,27 @@ class Maps_Controller
         ]);
     }
 
+    public static function legacy_maps()
+    {
+        return rest_ensure_response(\WPMapBlock\Legacy\Block::find_in_content());
+    }
+
     public static function can_edit()
     {
         return current_user_can('edit_posts');
+    }
+
+    /**
+     * Standard 403 response for requests that clear the coarse `edit_posts`
+     * gate but fail the per-object capability check for the action at hand.
+     */
+    private static function forbidden()
+    {
+        return new \WP_Error(
+            'wpmb_forbidden',
+            __('Sorry, you are not allowed to do that.', 'wp-map-block'),
+            ['status' => rest_authorization_required_code()]
+        );
     }
 
     public static function index()
@@ -154,6 +189,51 @@ class Maps_Controller
         $title  = isset($params['title']) ? sanitize_text_field($params['title']) : __('Untitled Map', 'wp-map-block');
         $config = isset($params['config']) ? Config::sanitize($params['config']) : Config::defaults();
 
+        // `preset` builds the map from a bundled template instead. The block
+        // editor uses this so it can offer the templates without shipping their
+        // (large) configs into every editor page.
+        if (!empty($params['preset'])) {
+            $preset = \WPMapBlock\Presets::find(sanitize_key($params['preset']));
+            if (!$preset) {
+                return new \WP_Error('wpmb_unknown_preset', __('Unknown template', 'wp-map-block'), ['status' => 400]);
+            }
+            $config = $preset['config'];
+            if (!isset($params['title'])) {
+                $title = $preset['name'];
+            }
+        }
+
+        return self::insert_map($title, $config);
+    }
+
+    /**
+     * Create a saved map from the attributes of a "simple" or classic block, so
+     * the editor can offer a one-click upgrade into the full builder.
+     */
+    public static function create_from_block($request)
+    {
+        $params = $request->get_json_params();
+        $attrs  = isset($params['attributes']) && is_array($params['attributes']) ? $params['attributes'] : [];
+        $title  = isset($params['title']) && $params['title'] !== ''
+            ? sanitize_text_field($params['title'])
+            : __('Map', 'wp-map-block');
+
+        // The block's own render path builds the config, so the new map opens
+        // looking exactly like the block the author is replacing.
+        $config = \WPMapBlock\Blocks\Embed_Block::simple_config($attrs);
+
+        return self::insert_map($title, $config);
+    }
+
+    private static function insert_map($title, $config)
+    {
+        // Every path here creates the map in the `publish` state, so the single
+        // choke point enforces publish capability — not merely `edit_posts`.
+        // Covers create(), create_from_block() and any future caller.
+        if (!current_user_can('publish_posts')) {
+            return self::forbidden();
+        }
+
         $id = wp_insert_post([
             'post_type'   => WPMAPBLOCK_POST_TYPE,
             'post_title'  => $title,
@@ -174,6 +254,9 @@ class Maps_Controller
         $post = get_post($id);
         if (!$post || $post->post_type !== WPMAPBLOCK_POST_TYPE) {
             return new \WP_Error('wpmb_not_found', __('Map not found', 'wp-map-block'), ['status' => 404]);
+        }
+        if (!current_user_can('edit_post', $id)) {
+            return self::forbidden();
         }
 
         $params = $request->get_json_params();
@@ -198,6 +281,9 @@ class Maps_Controller
         if (!$post || $post->post_type !== WPMAPBLOCK_POST_TYPE) {
             return new \WP_Error('wpmb_not_found', __('Map not found', 'wp-map-block'), ['status' => 404]);
         }
+        if (!current_user_can('delete_post', $id)) {
+            return self::forbidden();
+        }
         wp_delete_post($id, true);
         return rest_ensure_response(['deleted' => true, 'id' => $id]);
     }
@@ -208,6 +294,11 @@ class Maps_Controller
         $post = get_post($id);
         if (!$post || $post->post_type !== WPMAPBLOCK_POST_TYPE) {
             return new \WP_Error('wpmb_not_found', __('Map not found', 'wp-map-block'), ['status' => 404]);
+        }
+        // Reading the source requires edit access to it; the copy is created
+        // published, so publish capability is required too.
+        if (!current_user_can('edit_post', $id) || !current_user_can('publish_posts')) {
+            return self::forbidden();
         }
 
         $new_id = wp_insert_post([
@@ -234,6 +325,16 @@ class Maps_Controller
         }
         $params = $request->get_json_params();
         $active = !empty($params['active']);
+
+        // Changing the map's state requires edit access to that specific map;
+        // activating it (publishing) additionally requires publish capability.
+        if (!current_user_can('edit_post', $id)) {
+            return self::forbidden();
+        }
+        if ($active && !current_user_can('publish_post', $id)) {
+            return self::forbidden();
+        }
+
         wp_update_post(['ID' => $id, 'post_status' => $active ? 'publish' : 'draft']);
         return rest_ensure_response(self::to_summary(get_post($id)));
     }
@@ -256,10 +357,24 @@ class Maps_Controller
             if (!$post || $post->post_type !== WPMAPBLOCK_POST_TYPE) {
                 continue;
             }
+            // Enforce the per-object capability for this action; silently skip
+            // maps the caller is not allowed to touch rather than failing the
+            // whole batch.
             if ($action === 'delete') {
+                if (!current_user_can('delete_post', $id)) {
+                    continue;
+                }
                 wp_delete_post($id, true);
-            } else {
-                wp_update_post(['ID' => $id, 'post_status' => $action === 'activate' ? 'publish' : 'draft']);
+            } elseif ($action === 'activate') {
+                if (!current_user_can('edit_post', $id) || !current_user_can('publish_post', $id)) {
+                    continue;
+                }
+                wp_update_post(['ID' => $id, 'post_status' => 'publish']);
+            } else { // deactivate
+                if (!current_user_can('edit_post', $id)) {
+                    continue;
+                }
+                wp_update_post(['ID' => $id, 'post_status' => 'draft']);
             }
             $done++;
         }
