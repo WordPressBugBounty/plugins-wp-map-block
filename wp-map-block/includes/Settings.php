@@ -48,8 +48,8 @@ class Settings
 
         if (isset($input['apiKeys']) && is_array($input['apiKeys'])) {
             foreach ($out['apiKeys'] as $k => $v) {
-                if (isset($input['apiKeys'][$k])) {
-                    $out['apiKeys'][$k] = sanitize_text_field($input['apiKeys'][$k]);
+                if (isset($input['apiKeys'][$k]) && is_scalar($input['apiKeys'][$k])) {
+                    $out['apiKeys'][$k] = sanitize_text_field((string) $input['apiKeys'][$k]);
                 }
             }
         }
@@ -60,11 +60,15 @@ class Settings
 
         if (isset($input['defaultProvider'])) {
             $providers = \WPMapBlock\Config::providers();
-            $out['defaultProvider'] = isset($providers[$input['defaultProvider']])
+            $out['defaultProvider'] = is_string($input['defaultProvider']) && isset($providers[$input['defaultProvider']])
                 ? $input['defaultProvider'] : 'openstreetmap';
+            // Locked Pro providers can't be the site default.
+            if (!\WPMapBlock\Pro::has('premium-providers') && !in_array($out['defaultProvider'], \WPMapBlock\Pro::free_providers(), true)) {
+                $out['defaultProvider'] = 'openstreetmap';
+            }
         }
 
-        update_option(self::OPTION, $out);
+        update_option(self::OPTION, $out, false);
         return $out;
     }
 }

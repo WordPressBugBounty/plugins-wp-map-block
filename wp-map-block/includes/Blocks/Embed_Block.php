@@ -37,16 +37,16 @@ class Embed_Block
         }
 
         // phpcs:disable WordPress.Security.NonceVerification.Recommended
-        $mode = isset($_GET['mode']) ? sanitize_key($_GET['mode']) : '';
+        $mode = isset($_GET['mode']) ? sanitize_key(wp_unslash($_GET['mode'])) : '';
         if ($mode === 'simple') {
             $html = self::render_simple(wp_unslash($_GET));
         } elseif ($mode === 'legacy') {
             // Render the classic (legacy) block from its attributes.
             // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- JSON payload validated as an array below; the request is nonce-checked at the top of ajax_preview().
-            $attrs = isset($_GET['legacy']) ? json_decode(wp_unslash($_GET['legacy']), true) : [];
+            $attrs = isset($_GET['legacy']) && is_string($_GET['legacy']) ? json_decode(wp_unslash($_GET['legacy']), true) : [];
             $html  = is_array($attrs) ? \WPMapBlock\Legacy\Block::render_callback($attrs) : '';
         } else {
-            $id   = isset($_GET['map']) ? (int) $_GET['map'] : 0;
+            $id   = isset($_GET['map']) ? absint(wp_unslash($_GET['map'])) : 0;
             $html = $id ? Renderer::render_map($id) : '';
         }
         // phpcs:enable
@@ -178,7 +178,7 @@ class Embed_Block
     {
         $mode = isset($attributes['mode']) ? $attributes['mode'] : '';
 
-        if ($mode === 'simple') {
+        if ('simple' === $mode) {
             return self::render_simple($attributes);
         }
 
@@ -214,6 +214,7 @@ class Embed_Block
         // Provider from `map_type`; map legacy GM/OSM to provider slugs. Falls
         // back to the earlier `provider` attr for any pre-rename simple blocks.
         $type = isset($a['map_type']) ? $a['map_type'] : (isset($a['provider']) ? $a['provider'] : 'openstreetmap');
+        $type = is_string($type) ? $type : 'openstreetmap';
         $legacy_type = ['GM' => 'google', 'OSM' => 'openstreetmap'];
         $provider = isset($legacy_type[$type]) ? $legacy_type[$type] : $type;
 

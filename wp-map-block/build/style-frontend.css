@@ -199,6 +199,9 @@
 	padding: 14px 16px 16px;
 }
 .wpmb-popup .wpmb-popup-title {
+	/* Explicit, not inherited: a site theme's `h3 { color: #fff }` must not win
+	   over the card's own text colour. Presets/dark theme override this below. */
+	color: #1f2733;
 	margin: 0 0 5px;
 	font-size: 15px;
 	font-weight: 700;
@@ -209,6 +212,22 @@
 	font-size: 13px;
 	line-height: 1.5;
 	color: #5b6b83;
+}
+/* Body markup (p, div, spans, lists…) follows the content colour instead of any
+   colour a site theme sets on those tags. Links keep their own colour. */
+.wpmb-popup .wpmb-popup-content :where(p, div, span, ul, ol, li, h1, h2, h3, h4, h5, h6, blockquote, small, strong, em, b, i, u, td, th, pre, code, figcaption) {
+	color: inherit;
+}
+.wpmb-popup .wpmb-popup-content .wpmb-popup-thumb {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	border-radius: 6px;
+	margin-bottom: 6px;
+}
+.wpmb-popup .wpmb-popup-content .wpmb-popup-price {
+	margin-top: 4px;
+	font-weight: 600;
 }
 .wpmb-popup .wpmb-popup-content p {
 	margin: 0 0 6px;
@@ -251,6 +270,7 @@
 	background: #0057d1;
 }
 .wpmb-popup .wpmb-popup-cta-arrow {
+	display: inline-flex;
 	transition: transform 0.15s;
 }
 .wpmb-popup .wpmb-popup-cta:hover .wpmb-popup-cta-arrow {
@@ -271,11 +291,13 @@
 	align-items: flex-end;
 	background: linear-gradient(to top, rgba(6, 15, 32, 0.9) 0%, rgba(6, 15, 32, 0.28) 55%, rgba(6, 15, 32, 0) 100%);
 }
-.wpmb-popup--overlay .wpmb-popup-body,
-.wpmb-popup--overlay .wpmb-popup-title {
+/* White text only when there's a photo + scrim behind it; without an image the
+   card stays light, so the text keeps its normal dark colours. */
+.wpmb-popup--overlay.has-image .wpmb-popup-body,
+.wpmb-popup--overlay.has-image .wpmb-popup-title {
 	color: #fff;
 }
-.wpmb-popup--overlay .wpmb-popup-content {
+.wpmb-popup--overlay.has-image .wpmb-popup-content {
 	color: rgba(255, 255, 255, 0.9);
 }
 
@@ -445,6 +467,9 @@
 	font-size: 13px;
 	line-height: 1;
 }
+.wpmb-sl-geo .wpmb-svg {
+	display: block;
+}
 .wpmb-sl-geo:hover {
 	background: #f6f7f8;
 }
@@ -457,6 +482,7 @@
 .wpmb-popup .wpmb-popup-dir {
 	display: inline-flex;
 	align-items: center;
+	gap: 6px;
 	padding: 7px 13px;
 	border-radius: 9px;
 	background: transparent;
@@ -521,6 +547,9 @@
 	line-height: 1;
 	color: #5a6675;
 	padding: 2px 6px;
+}
+.wpmb-dir-toggle .wpmb-svg {
+	display: block;
 }
 .wpmb-dir-toggle:hover {
 	color: #006bff;

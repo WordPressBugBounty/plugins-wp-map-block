@@ -130,7 +130,31 @@ class Pro
             ],
         ];
 
-        return apply_filters('wpmb/pro/plans', $plans);
+        $plans = apply_filters('wpmb/pro/plans', $plans);
+
+        // Tag every checkout link with UTMs (source/medium match Recommendations)
+        // so store purchases can be attributed to the in-app Compare page and the
+        // plan chosen. Skipped for any param a filter already set.
+        foreach ($plans as &$plan) {
+            if (empty($plan['url'])) {
+                continue;
+            }
+            $utm = [
+                'utm_source'   => 'wp-map-block',
+                'utm_medium'   => 'plugin',
+                'utm_campaign' => 'compare-page',
+                'utm_content'  => isset($plan['slug']) ? $plan['slug'] : '',
+            ];
+            foreach (array_keys($utm) as $key) {
+                if (false !== strpos($plan['url'], $key . '=')) {
+                    unset($utm[$key]);
+                }
+            }
+            $plan['url'] = add_query_arg(array_filter($utm), $plan['url']);
+        }
+        unset($plan);
+
+        return $plans;
     }
 
     /** Is the Pro plugin installed and active? */

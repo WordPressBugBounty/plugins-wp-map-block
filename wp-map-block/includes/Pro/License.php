@@ -209,7 +209,7 @@ class License
         // spacing here even though the rest of this file is space-tight.
         self::$client = se_license_init( [
             'package_file'        => WPMB_PRO_PLUGIN_FILE,
-            'package_name'        => $is_pro ? 'WP Map Block Pro' : 'WP Map Block',
+            'package_name'        => $is_pro ? 'WP Map Block Premium' : 'WP Map Block',
             'product_id'          => (int) WPMB_PRO_PRODUCT_ID,
             // Single-codebase freemium. The pro zip carries the premium modules →
             // is_free:false so the SDK does licensing + delivers the Pro package.

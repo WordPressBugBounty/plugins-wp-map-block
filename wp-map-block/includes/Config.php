@@ -209,14 +209,14 @@ class Config
         $out              = $d;
         $out['version']   = self::SCHEMA_VERSION;
         $providers        = self::providers();
-        $out['provider']  = isset($input['provider']) && isset($providers[$input['provider']])
+        $out['provider']  = isset($input['provider']) && is_string($input['provider']) && isset($providers[$input['provider']])
             ? $input['provider'] : $d['provider'];
 
         if (isset($input['providerOptions']) && is_array($input['providerOptions'])) {
             $out['providerOptions'] = [
-                'apiKey'    => isset($input['providerOptions']['apiKey']) ? sanitize_text_field($input['providerOptions']['apiKey']) : '',
-                'styleUrl'  => isset($input['providerOptions']['styleUrl']) ? esc_url_raw($input['providerOptions']['styleUrl']) : '',
-                'styleName' => isset($input['providerOptions']['styleName']) ? sanitize_text_field($input['providerOptions']['styleName']) : '',
+                'apiKey'    => self::text($input['providerOptions'], 'apiKey'),
+                'styleUrl'  => self::url($input['providerOptions'], 'styleUrl'),
+                'styleName' => self::text($input['providerOptions'], 'styleName'),
             ];
         }
 
@@ -224,8 +224,8 @@ class Config
             $v = $input['view'];
             $out['view'] = [
                 'center'  => [
-                    'lat' => isset($v['center']['lat']) ? (float) $v['center']['lat'] : $d['view']['center']['lat'],
-                    'lng' => isset($v['center']['lng']) ? (float) $v['center']['lng'] : $d['view']['center']['lng'],
+                    'lat' => isset($v['center']['lat']) ? self::clampf($v['center']['lat'], -90, 90) : $d['view']['center']['lat'],
+                    'lng' => isset($v['center']['lng']) ? self::clampf($v['center']['lng'], -180, 180) : $d['view']['center']['lng'],
                 ],
                 'zoom'    => isset($v['zoom']) ? self::clampf($v['zoom'], 0, 24) : $d['view']['zoom'],
                 'minZoom' => isset($v['minZoom']) ? self::clampf($v['minZoom'], 0, 24) : $d['view']['minZoom'],
@@ -237,8 +237,8 @@ class Config
 
         if (isset($input['size']) && is_array($input['size'])) {
             $out['size'] = [
-                'width'  => isset($input['size']['width']) ? sanitize_text_field($input['size']['width']) : $d['size']['width'],
-                'height' => isset($input['size']['height']) ? (int) $input['size']['height'] : $d['size']['height'],
+                'width'  => isset($input['size']['width']) ? self::css_width($input['size']['width']) : $d['size']['width'],
+                'height' => isset($input['size']['height']) ? self::clampi($input['size']['height'], 50, 5000) : $d['size']['height'],
             ];
         }
 
@@ -249,7 +249,7 @@ class Config
         }
 
         if (isset($input['mapType'])) {
-            $mt = sanitize_key($input['mapType']);
+            $mt = self::key($input['mapType']);
             $out['mapType'] = in_array($mt, ['roadmap', 'satellite', 'hybrid', 'terrain'], true) ? $mt : 'roadmap';
         }
 
@@ -260,7 +260,7 @@ class Config
         }
 
         if (isset($input['markerOptions']) && is_array($input['markerOptions'])) {
-            $anim = isset($input['markerOptions']['animation']) ? sanitize_key($input['markerOptions']['animation']) : 'none';
+            $anim = isset($input['markerOptions']['animation']) ? self::key($input['markerOptions']['animation']) : 'none';
             $out['markerOptions']['animation'] = in_array($anim, ['none', 'bounce', 'drop', 'pulse'], true) ? $anim : 'none';
             $out['markerOptions']['draggable'] = !empty($input['markerOptions']['draggable']);
         }
@@ -280,8 +280,8 @@ class Config
         if (isset($input['clustering']) && is_array($input['clustering'])) {
             $out['clustering'] = [
                 'enabled' => isset($input['clustering']['enabled']) ? (bool) $input['clustering']['enabled'] : false,
-                'radius'  => isset($input['clustering']['radius']) ? (int) $input['clustering']['radius'] : 50,
-                'maxZoom' => isset($input['clustering']['maxZoom']) ? (int) $input['clustering']['maxZoom'] : 14,
+                'radius'  => isset($input['clustering']['radius']) ? self::clampi($input['clustering']['radius'], 1, 500) : 50,
+                'maxZoom' => isset($input['clustering']['maxZoom']) ? self::clampi($input['clustering']['maxZoom'], 0, 24) : 14,
             ];
         }
 
@@ -292,18 +292,18 @@ class Config
         if (isset($input['heatmap']) && is_array($input['heatmap'])) {
             $out['heatmap'] = [
                 'enabled'   => isset($input['heatmap']['enabled']) ? (bool) $input['heatmap']['enabled'] : false,
-                'radius'    => isset($input['heatmap']['radius']) ? (int) $input['heatmap']['radius'] : 30,
-                'intensity' => isset($input['heatmap']['intensity']) ? (float) $input['heatmap']['intensity'] : 1,
+                'radius'    => isset($input['heatmap']['radius']) ? self::clampi($input['heatmap']['radius'], 1, 200) : 30,
+                'intensity' => isset($input['heatmap']['intensity']) ? self::clampf($input['heatmap']['intensity'], 0, 100) : 1,
             ];
         }
 
         if (isset($input['storeLocator']) && is_array($input['storeLocator'])) {
             $sl = $input['storeLocator'];
-            $unit = isset($sl['unit']) && in_array($sl['unit'], ['km', 'mi'], true) ? $sl['unit'] : 'km';
+            $unit = isset($sl['unit']) && 'mi' === $sl['unit'] ? 'mi' : 'km';
             $out['storeLocator'] = [
                 'enabled'     => isset($sl['enabled']) ? (bool) $sl['enabled'] : false,
-                'placeholder' => isset($sl['placeholder']) ? sanitize_text_field($sl['placeholder']) : '',
-                'radius'      => isset($sl['radius']) ? (int) $sl['radius'] : 25,
+                'placeholder' => self::text($sl, 'placeholder'),
+                'radius'      => isset($sl['radius']) ? self::clampi($sl['radius'], 1, 20000) : 25,
                 'unit'        => $unit,
                 'showList'    => isset($sl['showList']) ? (bool) $sl['showList'] : true,
                 'geolocate'   => isset($sl['geolocate']) ? (bool) $sl['geolocate'] : true,
@@ -316,7 +316,7 @@ class Config
                 'enabled'        => isset($dir['enabled']) ? (bool) $dir['enabled'] : false,
                 'layout'         => isset($dir['layout']) && $dir['layout'] === 'bottom' ? 'bottom' : 'side',
                 'position'       => isset($dir['position']) && $dir['position'] === 'right' ? 'right' : 'left',
-                'width'          => isset($dir['width']) ? (int) $dir['width'] : 320,
+                'width'          => isset($dir['width']) ? self::clampi($dir['width'], 120, 1200) : 320,
                 'showSearch'     => isset($dir['showSearch']) ? (bool) $dir['showSearch'] : true,
                 'showCategories' => isset($dir['showCategories']) ? (bool) $dir['showCategories'] : true,
                 'collapsed'      => isset($dir['collapsed']) ? (bool) $dir['collapsed'] : false,
@@ -332,15 +332,16 @@ class Config
         }
 
         if (isset($input['style']) && is_array($input['style'])) {
-            $mapTheme = isset($input['style']['theme']) ? sanitize_key($input['style']['theme']) : 'light';
+            $mapTheme = isset($input['style']['theme']) ? self::key($input['style']['theme']) : 'light';
             $out['style']['theme'] = in_array($mapTheme, ['light', 'dark', 'auto'], true) ? $mapTheme : 'light';
             $out['style']['popup']['maxWidth'] = isset($input['style']['popup']['maxWidth'])
-                ? (int) $input['style']['popup']['maxWidth'] : 260;
+                ? self::clampi($input['style']['popup']['maxWidth'], 120, 1000) : 260;
             $out['style']['popup']['theme'] = isset($input['style']['popup']['theme']) && $input['style']['popup']['theme'] === 'dark'
                 ? 'dark' : 'light';
-            $preset = isset($input['style']['popup']['preset']) ? sanitize_key($input['style']['popup']['preset']) : 'card';
+            $preset = isset($input['style']['popup']['preset']) ? self::key($input['style']['popup']['preset']) : 'card';
             $out['style']['popup']['preset'] = in_array($preset, ['card', 'overlay', 'compact', 'minimal', 'classic'], true) ? $preset : 'card';
-            $cta = isset($input['style']['popup']['ctaLabel']) ? sanitize_text_field($input['style']['popup']['ctaLabel']) : 'Learn more';
+            $cta = isset($input['style']['popup']['ctaLabel']) && is_array($input['style']['popup'])
+                ? self::text($input['style']['popup'], 'ctaLabel') : 'Learn more';
             $out['style']['popup']['ctaLabel'] = $cta !== '' ? $cta : 'Learn more';
         }
 
@@ -349,23 +350,25 @@ class Config
 
     public static function sanitize_marker($m)
     {
-        if (!is_array($m) || !isset($m['lat']) || !isset($m['lng'])) {
+        if (!is_array($m) || !isset($m['lat']) || !isset($m['lng']) || !is_numeric($m['lat']) || !is_numeric($m['lng'])) {
             return null;
         }
+        $icon = isset($m['icon']) && is_array($m['icon']) ? $m['icon'] : [];
+        $id   = self::text($m, 'id');
         return [
-            'id'       => isset($m['id']) ? sanitize_text_field($m['id']) : uniqid('mk_'),
-            'lat'      => (float) $m['lat'],
-            'lng'      => (float) $m['lng'],
-            'title'    => isset($m['title']) ? sanitize_text_field($m['title']) : '',
-            'content'  => isset($m['content']) ? wp_kses_post($m['content']) : '',
-            'image'    => isset($m['image']) ? esc_url_raw($m['image']) : '',
-            'link'     => isset($m['link']) ? esc_url_raw($m['link']) : '',
-            'category' => isset($m['category']) ? sanitize_text_field($m['category']) : '',
+            'id'       => '' !== $id ? $id : uniqid('mk_'),
+            'lat'      => self::clampf($m['lat'], -90, 90),
+            'lng'      => self::clampf($m['lng'], -180, 180),
+            'title'    => self::text($m, 'title'),
+            'content'  => isset($m['content']) && is_string($m['content']) ? wp_kses_post($m['content']) : '',
+            'image'    => self::url($m, 'image'),
+            'link'     => self::url($m, 'link'),
+            'category' => self::text($m, 'category'),
             'icon'     => [
-                'type'   => isset($m['icon']['type']) ? sanitize_key($m['icon']['type']) : 'default',
-                'preset' => isset($m['icon']['preset']) ? sanitize_key($m['icon']['preset']) : '',
-                'url'    => isset($m['icon']['url']) ? esc_url_raw($m['icon']['url']) : '',
-                'color'  => isset($m['icon']['color']) ? sanitize_hex_color($m['icon']['color']) : '',
+                'type'   => isset($icon['type']) ? self::key($icon['type']) : 'default',
+                'preset' => isset($icon['preset']) ? self::key($icon['preset']) : '',
+                'url'    => self::url($icon, 'url'),
+                'color'  => self::color($icon, 'color', ''),
             ],
         ];
     }
@@ -375,55 +378,125 @@ class Config
         if (!is_array($s)) {
             return null;
         }
-        $type   = isset($s['type']) && $s['type'] === 'polyline' ? 'polyline' : 'polygon';
+        $type   = isset($s['type']) && 'polyline' === $s['type'] ? 'polyline' : 'polygon';
         $coords = [];
         if (isset($s['coords']) && is_array($s['coords'])) {
             foreach ($s['coords'] as $pt) {
-                if (is_array($pt) && isset($pt[0], $pt[1])) {
-                    $coords[] = [(float) $pt[0], (float) $pt[1]];
+                if (is_array($pt) && isset($pt[0], $pt[1]) && is_numeric($pt[0]) && is_numeric($pt[1])) {
+                    $coords[] = [self::clampf($pt[0], -90, 90), self::clampf($pt[1], -180, 180)];
                 }
             }
         }
+        $id = self::text($s, 'id');
         return [
-            'id'          => isset($s['id']) ? sanitize_text_field($s['id']) : uniqid('sh_'),
+            'id'          => '' !== $id ? $id : uniqid('sh_'),
             'type'        => $type,
-            'color'       => isset($s['color']) ? sanitize_hex_color($s['color']) : '#006bff',
-            'fillColor'   => isset($s['fillColor']) ? sanitize_hex_color($s['fillColor']) : '#006bff',
+            'color'       => self::color($s, 'color', '#006bff'),
+            'fillColor'   => self::color($s, 'fillColor', '#006bff'),
             'fillOpacity' => isset($s['fillOpacity']) ? self::clampf($s['fillOpacity'], 0, 1) : 0.2,
-            'weight'      => isset($s['weight']) ? (int) $s['weight'] : 2,
+            'weight'      => isset($s['weight']) ? self::clampi($s['weight'], 0, 50) : 2,
             'coords'      => $coords,
         ];
     }
 
     public static function sanitize_category($c)
     {
+        if (!is_array($c)) {
+            $c = [];
+        }
+        $id = self::text($c, 'id');
         return [
-            'id'    => isset($c['id']) ? sanitize_text_field($c['id']) : uniqid('cat_'),
-            'name'  => isset($c['name']) ? sanitize_text_field($c['name']) : '',
-            'color' => isset($c['color']) ? sanitize_hex_color($c['color']) : '',
-            'icon'  => isset($c['icon']) ? esc_url_raw($c['icon']) : '',
+            'id'    => '' !== $id ? $id : uniqid('cat_'),
+            'name'  => self::text($c, 'name'),
+            'color' => self::color($c, 'color', ''),
+            'icon'  => self::url($c, 'icon'),
         ];
     }
 
     public static function sanitize_data_source($s)
     {
-        $type = isset($s['type']) ? sanitize_key($s['type']) : 'static';
+        if (!is_array($s)) {
+            $s = [];
+        }
+        $type = isset($s['type']) ? self::key($s['type']) : 'static';
+        $id   = self::text($s, 'id');
         return [
-            'id'      => isset($s['id']) ? sanitize_text_field($s['id']) : uniqid('ds_'),
-            'type'    => in_array($type, ['static', 'cpt', 'geojson', 'rest', 'listing'], true) ? $type : 'static',
-            'label'   => isset($s['label']) ? sanitize_text_field($s['label']) : '',
-            'url'     => isset($s['url']) ? esc_url_raw($s['url']) : '',
-            'source'  => isset($s['source']) ? sanitize_key($s['source']) : '',
-            'postType' => isset($s['postType']) ? sanitize_key($s['postType']) : '',
-            'latMeta' => isset($s['latMeta']) ? sanitize_key($s['latMeta']) : '',
-            'lngMeta' => isset($s['lngMeta']) ? sanitize_key($s['lngMeta']) : '',
-            'limit'   => isset($s['limit']) ? (int) $s['limit'] : 100,
+            'id'       => '' !== $id ? $id : uniqid('ds_'),
+            'type'     => in_array($type, ['static', 'cpt', 'geojson', 'rest', 'listing'], true) ? $type : 'static',
+            'label'    => self::text($s, 'label'),
+            'url'      => self::url($s, 'url'),
+            'source'   => isset($s['source']) ? self::key($s['source']) : '',
+            'postType' => isset($s['postType']) ? self::key($s['postType']) : '',
+            'latMeta'  => isset($s['latMeta']) ? self::meta_key($s['latMeta']) : '',
+            'lngMeta'  => isset($s['lngMeta']) ? self::meta_key($s['lngMeta']) : '',
+            'limit'    => isset($s['limit']) ? self::clampi($s['limit'], 1, 1000) : 100,
         ];
+    }
+
+    /** Text field `$key` of `$arr` as a sanitized string; '' when absent or not a scalar. */
+    private static function text($arr, $key)
+    {
+        return isset($arr[$key]) && is_scalar($arr[$key]) ? sanitize_text_field((string) $arr[$key]) : '';
+    }
+
+    /** URL field `$key` of `$arr` (http/https/mailto/tel only); '' when absent or invalid. */
+    private static function url($arr, $key)
+    {
+        if (!isset($arr[$key]) || !is_string($arr[$key])) {
+            return '';
+        }
+        return esc_url_raw($arr[$key], ['http', 'https', 'mailto', 'tel']);
+    }
+
+    /** Hex colour field, falling back to `$default` when missing or invalid. */
+    private static function color($arr, $key, $default)
+    {
+        if (!isset($arr[$key]) || !is_string($arr[$key])) {
+            return $default;
+        }
+        $hex = sanitize_hex_color($arr[$key]);
+        return $hex ? $hex : $default;
+    }
+
+    /** Slug-like value; '' for anything that is not a scalar. */
+    private static function key($value)
+    {
+        return is_scalar($value) ? sanitize_key((string) $value) : '';
+    }
+
+    /**
+     * Meta keys keep their case and may start with an underscore, so they can't go
+     * through sanitize_key(). Allow the characters WordPress itself uses in keys.
+     */
+    private static function meta_key($value)
+    {
+        if (!is_string($value)) {
+            return '';
+        }
+        return substr(preg_replace('/[^A-Za-z0-9_\-.:]/', '', $value), 0, 191);
+    }
+
+    /**
+     * A CSS width that is safe to place inside a `style` attribute: a number with
+     * an optional %, px, vw, em or rem unit. Anything else falls back to 100%.
+     */
+    public static function css_width($value)
+    {
+        $value = is_scalar($value) ? trim((string) $value) : '';
+        if (preg_match('/^\d{1,4}(\.\d{1,2})?(%|px|vw|em|rem)?$/', $value)) {
+            return $value;
+        }
+        return '100%';
+    }
+
+    private static function clampi($v, $min, $max)
+    {
+        return (int) self::clampf($v, $min, $max);
     }
 
     private static function clampf($v, $min, $max)
     {
-        $v = (float) $v;
+        $v = is_numeric($v) ? (float) $v : (float) $min;
         return max($min, min($max, $v));
     }
 }

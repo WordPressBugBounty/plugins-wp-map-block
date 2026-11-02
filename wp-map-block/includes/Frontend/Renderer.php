@@ -66,13 +66,13 @@ class Renderer
         // Materialize server-side dynamic data sources (CPT) into markers.
         $config = \WPMapBlock\Frontend\DataSources::resolve($config);
 
-        $width  = isset($config['size']['width']) ? $config['size']['width'] : '100%';
-        $height = isset($config['size']['height']) ? (int) $config['size']['height'] : 500;
+        $width  = Config::css_width(isset($config['size']['width']) ? $config['size']['width'] : '100%');
+        $height = isset($config['size']['height']) ? max(50, min(5000, (int) $config['size']['height'])) : 500;
         // Numeric width is treated as a percentage for backward familiarity.
         if (is_numeric($width)) {
             $width .= '%';
         }
-        $style = sprintf('width:%s;height:%dpx;', esc_attr($width), $height);
+        $style = sprintf('width:%s;height:%dpx;', $width, $height);
 
         $json = wp_json_encode($config, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 
@@ -80,7 +80,7 @@ class Renderer
             '<div class="wpmb-map" id="%1$s" data-wpmb-config="%2$s" style="%3$s"></div>',
             esc_attr($dom_id),
             esc_attr($json),
-            $style
+            esc_attr($style)
         );
     }
 }

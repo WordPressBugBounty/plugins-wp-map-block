@@ -42,8 +42,9 @@ class Promos_Controller
         register_rest_route(WPMAPBLOCK_REST_NAMESPACE, '/gift/optin', [
             'methods'             => 'POST',
             'callback'            => [self::class, 'optin'],
+            // Opting in enables site-wide usage tracking, so it needs an admin.
             'permission_callback' => function () {
-                return current_user_can('edit_posts');
+                return current_user_can('manage_options');
             },
         ]);
     }
@@ -51,8 +52,9 @@ class Promos_Controller
     public static function optin($request)
     {
         $p     = $request->get_json_params();
-        $email = isset($p['email']) ? sanitize_email($p['email']) : '';
-        $name  = isset($p['name']) ? sanitize_text_field($p['name']) : '';
+        $p     = is_array($p) ? $p : [];
+        $email = isset($p['email']) && is_string($p['email']) ? sanitize_email($p['email']) : '';
+        $name  = isset($p['name']) && is_string($p['name']) ? sanitize_text_field($p['name']) : '';
 
         // One-click opt-in (like the Setup wizard): fall back to the logged-in
         // user's account email/name when the client doesn't supply one.
@@ -78,22 +80,22 @@ class Promos_Controller
     public static function track($request)
     {
         $p = $request->get_json_params();
-        if (empty($p['id'])) {
+        if (!is_array($p) || empty($p['id']) || !is_string($p['id'])) {
             return rest_ensure_response(['ok' => false]);
         }
-        Recommendations::track(
+        $ok = Recommendations::track(
             $p['id'],
-            isset($p['placement']) ? $p['placement'] : 'unknown',
-            isset($p['event']) ? $p['event'] : 'impression',
-            isset($p['variant']) ? $p['variant'] : 0
+            isset($p['placement']) && is_string($p['placement']) ? $p['placement'] : 'unknown',
+            isset($p['event']) && is_string($p['event']) ? $p['event'] : 'impression',
+            isset($p['variant']) && is_scalar($p['variant']) ? $p['variant'] : 0
         );
-        return rest_ensure_response(['ok' => true]);
+        return rest_ensure_response(['ok' => $ok]);
     }
 
     public static function dismiss($request)
     {
         $params = $request->get_json_params();
-        $id     = isset($params['id']) ? $params['id'] : '';
+        $id     = is_array($params) && isset($params['id']) && is_string($params['id']) ? $params['id'] : '';
         if (!$id) {
             return new \WP_Error('wpmb_missing_id', __('Missing promo id', 'wp-map-block'), ['status' => 400]);
         }

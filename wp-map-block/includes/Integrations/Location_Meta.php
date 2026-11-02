@@ -94,10 +94,13 @@ class Location_Meta
 
     public static function save($post_id, $post)
     {
-        if (!isset($_POST['wpmb_location_nonce']) || !wp_verify_nonce(sanitize_key($_POST['wpmb_location_nonce']), 'wpmb_location')) {
+        if (!isset($_POST['wpmb_location_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['wpmb_location_nonce'])), 'wpmb_location')) {
             return;
         }
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        if ((defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || wp_is_post_revision($post_id)) {
+            return;
+        }
+        if (!in_array($post->post_type, self::$post_types, true)) {
             return;
         }
         if (!current_user_can('edit_post', $post_id)) {
@@ -106,11 +109,12 @@ class Location_Meta
 
         foreach ([self::LAT => 'wpmb_lat', self::LNG => 'wpmb_lng'] as $meta => $field) {
             if (isset($_POST[$field])) {
-                $val = trim(sanitize_text_field(wp_unslash($_POST[$field])));
-                if ($val === '') {
+                $val = is_string($_POST[$field]) ? trim(sanitize_text_field(wp_unslash($_POST[$field]))) : '';
+                if ('' === $val || !is_numeric($val)) {
                     delete_post_meta($post_id, $meta);
                 } else {
-                    update_post_meta($post_id, $meta, (float) $val);
+                    $limit = self::LAT === $meta ? 90 : 180;
+                    update_post_meta($post_id, $meta, max(-$limit, min($limit, (float) $val)));
                 }
             }
         }

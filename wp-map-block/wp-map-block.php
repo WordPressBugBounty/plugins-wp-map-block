@@ -6,7 +6,7 @@
  * Description: All-in-one interactive map builder for WordPress. Build maps visually with markers, categories, clustering, shapes and dynamic data across Google Maps, OpenStreetMap, Mapbox, MapTiler, Esri and more — no API key to start.
  * Author: Kodezen
  * Author URI: https://kodezen.com/
- * Version: 3.1.0
+ * Version: 3.2.1
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * License: GPL2+
@@ -60,6 +60,44 @@ if (file_exists(dirname(__FILE__) . '/vendor/storeengine/wordpress-sdk/init.php'
     require_once dirname(__FILE__) . '/vendor/storeengine/wordpress-sdk/init.php';
 }
 
+// Free and Pro are separate folders (wp-map-block / wp-map-block-pro) that can
+// both sit in wp-content/plugins, but only ONE may be active: activating either
+// build deactivates the other, so whichever was activated last wins. Registered
+// at FILE SCOPE (not in the class) because when a sibling copy is already
+// loaded, the class_exists() guard below skips this file's bootstrap entirely —
+// yet WordPress still includes this file and fires its activation hook.
+register_activation_hook(__FILE__, static function () {
+    $self = plugin_basename(__FILE__);
+    if (!function_exists('get_plugin_data')) {
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+
+    $others = [];
+    foreach ((array) get_option('active_plugins', []) as $basename) {
+        if ($basename === $self) {
+            continue;
+        }
+        $file = WP_PLUGIN_DIR . '/' . $basename;
+        if (!file_exists($file)) {
+            continue;
+        }
+        $data = get_plugin_data($file, false, false);
+        if (false !== stripos((string) ($data['Name'] ?? ''), 'WP Map Block')) {
+            $others[] = $basename;
+        }
+    }
+    if ($others) {
+        deactivate_plugins($others, true);
+    }
+
+    // A sibling's bootstrap ran this request, so THIS copy's own constructor (and
+    // its activate() hook) never did — run the one-time setup through the loaded
+    // class instead. Skipped when this file is the one that bootstrapped.
+    if (defined('WPMAPBLOCK_PLUGIN_FILE') && WPMAPBLOCK_PLUGIN_FILE !== __FILE__ && class_exists('WPMapBlock', false)) {
+        WPMapBlock::getInstance()->activate();
+    }
+});
+
 if (!class_exists('WPMapBlock')) {
 
     /**
@@ -79,7 +117,7 @@ if (!class_exists('WPMapBlock')) {
 
         public function define_constant()
         {
-            define('WPMAPBLOCK_VERSION', '3.1.0');
+            define('WPMAPBLOCK_VERSION', '3.2.1');
             define('WPMAPBLOCK_PLUGIN_FILE', __FILE__);
             define('WPMAPBLOCK_PLUGIN_BASENAME', plugin_basename(__FILE__));
             define('WPMAPBLOCK_PLUGIN_SLUG', 'wp-map-block');

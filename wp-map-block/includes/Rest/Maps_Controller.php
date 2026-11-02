@@ -115,17 +115,19 @@ class Maps_Controller
             return new \WP_Error('wpmb_not_found', __('Map not found', 'wp-map-block'), ['status' => 404]);
         }
 
-        $q     = isset($request['q']) ? trim((string) $request['q']) : '';
+        $q     = is_string($request['q']) ? trim(sanitize_text_field(wp_unslash($request['q']))) : '';
         $limit = isset($request['limit']) ? max(1, min(500, (int) $request['limit'])) : 50;
 
-        $config  = \WPMapBlock\Frontend\DataSources::resolve(self::get_config($id));
+        // Same paywall as the render path, so this public endpoint can't be used
+        // to read Pro-only dynamic sources on an unlicensed site.
+        $config  = \WPMapBlock\Frontend\DataSources::resolve(\WPMapBlock\Pro::sanitize_config(self::get_config($id)));
         $markers = isset($config['markers']) && is_array($config['markers']) ? $config['markers'] : [];
 
         if ($q !== '') {
-            $needle  = strtolower($q);
+            $needle  = self::lower($q);
             $markers = array_values(array_filter($markers, static function ($m) use ($needle) {
-                $hay = strtolower(($m['title'] ?? '') . ' ' . wp_strip_all_tags((string) ($m['content'] ?? '')));
-                return strpos($hay, $needle) !== false;
+                $hay = self::lower(($m['title'] ?? '') . ' ' . wp_strip_all_tags((string) ($m['content'] ?? '')));
+                return false !== strpos($hay, $needle);
             }));
         }
 
@@ -134,6 +136,11 @@ class Maps_Controller
             'total'   => count($markers),
             'markers' => array_slice(array_values($markers), 0, $limit),
         ]);
+    }
+
+    private static function lower($text)
+    {
+        return function_exists('mb_strtolower') ? mb_strtolower($text) : strtolower($text);
     }
 
     public static function legacy_maps()
@@ -169,6 +176,12 @@ class Maps_Controller
             'order'          => 'DESC',
         ]);
 
+        // Only list maps the caller may edit, so contributors don't see
+        // other users' drafts or their metadata.
+        $posts = array_values(array_filter($posts, static function ($post) {
+            return current_user_can('edit_post', $post->ID);
+        }));
+
         $items = array_map([self::class, 'to_summary'], $posts);
         return rest_ensure_response($items);
     }
@@ -180,19 +193,23 @@ class Maps_Controller
         if (!$post || $post->post_type !== WPMAPBLOCK_POST_TYPE) {
             return new \WP_Error('wpmb_not_found', __('Map not found', 'wp-map-block'), ['status' => 404]);
         }
+        if (!current_user_can('edit_post', $id)) {
+            return self::forbidden();
+        }
         return rest_ensure_response(self::to_full($post));
     }
 
     public static function create($request)
     {
         $params = $request->get_json_params();
-        $title  = isset($params['title']) ? sanitize_text_field($params['title']) : __('Untitled Map', 'wp-map-block');
+        $params = is_array($params) ? $params : [];
+        $title  = isset($params['title']) && is_string($params['title']) ? sanitize_text_field($params['title']) : __('Untitled Map', 'wp-map-block');
         $config = isset($params['config']) ? Config::sanitize($params['config']) : Config::defaults();
 
         // `preset` builds the map from a bundled template instead. The block
         // editor uses this so it can offer the templates without shipping their
         // (large) configs into every editor page.
-        if (!empty($params['preset'])) {
+        if (!empty($params['preset']) && is_string($params['preset'])) {
             $preset = \WPMapBlock\Presets::find(sanitize_key($params['preset']));
             if (!$preset) {
                 return new \WP_Error('wpmb_unknown_preset', __('Unknown template', 'wp-map-block'), ['status' => 400]);
@@ -213,8 +230,9 @@ class Maps_Controller
     public static function create_from_block($request)
     {
         $params = $request->get_json_params();
+        $params = is_array($params) ? $params : [];
         $attrs  = isset($params['attributes']) && is_array($params['attributes']) ? $params['attributes'] : [];
-        $title  = isset($params['title']) && $params['title'] !== ''
+        $title  = isset($params['title']) && is_string($params['title']) && $params['title'] !== ''
             ? sanitize_text_field($params['title'])
             : __('Map', 'wp-map-block');
 
@@ -236,7 +254,7 @@ class Maps_Controller
 
         $id = wp_insert_post([
             'post_type'   => WPMAPBLOCK_POST_TYPE,
-            'post_title'  => $title,
+            'post_title'  => wp_slash($title),
             'post_status' => 'publish',
         ], true);
 
@@ -260,10 +278,11 @@ class Maps_Controller
         }
 
         $params = $request->get_json_params();
-        if (isset($params['title'])) {
+        $params = is_array($params) ? $params : [];
+        if (isset($params['title']) && is_string($params['title'])) {
             wp_update_post([
                 'ID'         => $id,
-                'post_title' => sanitize_text_field($params['title']),
+                'post_title' => wp_slash(sanitize_text_field($params['title'])),
             ]);
         }
         if (isset($params['config'])) {
@@ -304,10 +323,15 @@ class Maps_Controller
         $new_id = wp_insert_post([
             'post_type'   => WPMAPBLOCK_POST_TYPE,
             /* translators: %s: original map title */
-            'post_title'  => sprintf(__('%s (copy)', 'wp-map-block'), $post->post_title),
+            'post_title'  => wp_slash(sprintf(__('%s (copy)', 'wp-map-block'), $post->post_title)),
             'post_status' => 'publish',
-        ]);
-        update_post_meta($new_id, Config::META_KEY, get_post_meta($id, Config::META_KEY, true));
+        ], true);
+        if (is_wp_error($new_id)) {
+            return $new_id;
+        }
+        // update_post_meta() unslashes its input, so the stored JSON must be
+        // re-slashed or every escaped quote/backslash in the config is lost.
+        update_post_meta($new_id, Config::META_KEY, wp_slash(get_post_meta($id, Config::META_KEY, true)));
         return rest_ensure_response(self::to_full(get_post($new_id)));
     }
 
@@ -324,7 +348,7 @@ class Maps_Controller
             return new \WP_Error('wpmb_not_found', __('Map not found', 'wp-map-block'), ['status' => 404]);
         }
         $params = $request->get_json_params();
-        $active = !empty($params['active']);
+        $active = is_array($params) && !empty($params['active']);
 
         // Changing the map's state requires edit access to that specific map;
         // activating it (publishing) additionally requires publish capability.
@@ -345,8 +369,9 @@ class Maps_Controller
     public static function bulk($request)
     {
         $params = $request->get_json_params();
-        $action = isset($params['action']) ? sanitize_key($params['action']) : '';
-        $ids    = isset($params['ids']) && is_array($params['ids']) ? array_map('intval', $params['ids']) : [];
+        $params = is_array($params) ? $params : [];
+        $action = isset($params['action']) && is_string($params['action']) ? sanitize_key($params['action']) : '';
+        $ids    = isset($params['ids']) && is_array($params['ids']) ? array_filter(array_map('absint', array_filter($params['ids'], 'is_scalar'))) : [];
         if (!in_array($action, ['activate', 'deactivate', 'delete'], true) || !$ids) {
             return new \WP_Error('wpmb_bad_request', __('Nothing to do.', 'wp-map-block'), ['status' => 400]);
         }

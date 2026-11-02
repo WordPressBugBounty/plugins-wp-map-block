@@ -113,7 +113,10 @@ class DataSources
     private static function resolve_cpt(array $ds)
     {
         $post_type = isset($ds['postType']) ? (string) $ds['postType'] : '';
-        if ($post_type === '' || !post_type_exists($post_type)) {
+        // Public post types only: a map is public output, and an editor must not
+        // be able to publish the titles/excerpts of private content through it.
+        $type_obj = $post_type !== '' ? get_post_type_object($post_type) : null;
+        if (!$type_obj || empty($type_obj->public)) {
             return [];
         }
 
@@ -127,6 +130,7 @@ class DataSources
         if ($limit <= 0) {
             $limit = 100;
         }
+        $limit = min($limit, 1000);
 
         $query = new \WP_Query([
             'post_type'      => $post_type,
@@ -140,7 +144,7 @@ class DataSources
         foreach ($query->posts as $post) {
             $lat = (float) get_post_meta($post->ID, $lat_meta, true);
             $lng = (float) get_post_meta($post->ID, $lng_meta, true);
-            if (empty($lat) || empty($lng)) {
+            if (empty($lat) || empty($lng) || post_password_required($post)) {
                 continue;
             }
 

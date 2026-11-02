@@ -47,6 +47,26 @@ class Menu
     }
 
     /**
+     * Inline SVG glyph for a submenu label (replaces emoji, which render
+     * differently per OS and ignore the menu colour). Static markup only.
+     *
+     * @param string $name   'sparkles' | 'zap'.
+     * @param bool   $before Place before the label text (adds a trailing gap).
+     */
+    private static function label_icon($name, $before = false)
+    {
+        $paths = [
+            'sparkles' => '<path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/><path d="M5 3v4M3 5h4M19 17v4M17 19h4"/>',
+            'zap'      => '<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',
+        ];
+        if (!isset($paths[$name])) {
+            return '';
+        }
+        $gap = $before ? 'margin-right:4px' : 'margin-left:4px';
+        return '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false" style="vertical-align:-2px;' . $gap . '">' . $paths[$name] . '</svg>';
+    }
+
+    /**
      * Paint the colourful marker ourselves via a ::before background. We can't
      * rely on the add_menu_page() icon alone: admin colour-scheme / white-label
      * features on some sites decode that data-URI and repaint every fill a flat
@@ -109,7 +129,7 @@ class Menu
         $discover_hook = add_submenu_page(
             self::SLUG,
             __('Discover', 'wp-map-block'),
-            '<span style="color:#ffb200">' . esc_html__('Discover ✨', 'wp-map-block') . '</span>',
+            '<span style="color:#ffb200">' . esc_html__('Discover', 'wp-map-block') . self::label_icon('sparkles') . '</span>',
             'edit_posts',
             self::SLUG_DISCOVER,
             [self::class, 'render_root']
@@ -121,7 +141,7 @@ class Menu
             $compare_hook = add_submenu_page(
                 self::SLUG,
                 __('Upgrade to Pro', 'wp-map-block'),
-                '<span style="color:#f0a020;font-weight:600">' . esc_html__('⚡ Upgrade to Pro', 'wp-map-block') . '</span>',
+                '<span style="color:#f0a020;font-weight:600">' . self::label_icon('zap', true) . esc_html__('Upgrade to Pro', 'wp-map-block') . '</span>',
                 'edit_posts',
                 self::SLUG_COMPARE,
                 [self::class, 'render_root']
@@ -228,6 +248,11 @@ class Menu
         $providers = Config::providers();
         if (!empty($settings['defaultProvider']) && isset($providers[$settings['defaultProvider']])) {
             $defaults['provider'] = $settings['defaultProvider'];
+        }
+        // A saved default that is a locked Pro provider (e.g. OpenFreeMap) must not
+        // pre-select itself on new maps — fall back to OpenStreetMap.
+        if (!\WPMapBlock\Pro::has('premium-providers') && !in_array($defaults['provider'], \WPMapBlock\Pro::free_providers(), true)) {
+            $defaults['provider'] = 'openstreetmap';
         }
 
         wp_localize_script('wpmb-admin', 'WPMB_ADMIN', [

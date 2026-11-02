@@ -3,7 +3,7 @@
         'name' => 'kodezen/wp-map-block',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '2d7053902e7249d67f1ab47ef3a9c50aa64fcdb0',
+        'reference' => '37c11264c96a3bdcc2b68bcb1672576b7f1056b0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'kodezen/wp-map-block' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '2d7053902e7249d67f1ab47ef3a9c50aa64fcdb0',
+            'reference' => '37c11264c96a3bdcc2b68bcb1672576b7f1056b0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

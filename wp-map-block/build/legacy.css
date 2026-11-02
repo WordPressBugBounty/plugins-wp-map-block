@@ -642,45 +642,24 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	}
 
 /**
- * Legacy marker-editor modal — layout + control styling.
+ * Legacy marker-editor modal — layout.
  *
- * The classic block reused these class names from the 2.x plugin but shipped no
- * stylesheet for them, so the modal relied on fragile inline styles: an inline
- * `width` on <Modal> (ignored by current Gutenberg) plus a flex body that could
- * wrap and hide the right-hand "Advanced Settings" panel. This file gives the
- * modal a stable width and a two-column grid that degrades to a single column
- * instead of collapsing. Loaded in the editor via build/legacy.css.
+ * Form controls (inputs, segmented control, switch, buttons) come from the shared
+ * inspector kit (src/shared/inspector.jsx); this file only lays the modal out and
+ * styles the place search that sits above the draggable map. Loaded in the editor
+ * via build/legacy.css.
  */
 
 /* Reliable width — newer <Modal> ignores an inline style width. */
 .components-modal__frame.wp-map-block-modal {
-	width: min(940px, 95vw);
+	width: min(760px, 95vw);
 	max-width: 95vw;
-}
-
-/* Vertical rhythm.
- *
- * Every control in this modal passes `__nextHasNoMarginBottom`, which strips
- * WordPress's own spacing — so without this the fields sit flush against each
- * other and each label touches the field above it, which is what made the modal
- * look broken. Spacing lives on the columns as a flex gap rather than on the
- * controls, so the side-by-side lat/lng row counts as one item and nothing
- * double-spaces. */
-.wp-map-block-modal .entry-left {
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-}
-.wp-map-block-modal-panel__body {
-	display: flex;
-	flex-direction: column;
-	gap: 14px;
 }
 
 /* Two columns that never wrap unexpectedly; stack on small screens. */
 .wp-map-block-modal__body {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(260px, 330px);
+	grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
 	gap: 24px;
 	align-items: start;
 }
@@ -688,10 +667,51 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .wp-map-block-modal .entry-right {
 	min-width: 0;
 }
+.wp-map-block-modal .entry-right {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
 @media (max-width: 782px) {
 	.wp-map-block-modal__body {
 		grid-template-columns: 1fr;
 	}
+}
+
+/* Advanced settings — a collapsible box under the fields. */
+.wpmb-adv {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+.wpmb-adv__head {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px;
+	background: none;
+	border: 0;
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+	font-family: inherit;
+	color: #1e1e1e;
+}
+.wpmb-adv__body {
+	padding: 12px;
+	border-top: 1px solid #f0f0f0;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+/* Footer: destructive action left, save right. */
+.wpmb-modal__foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 24px;
+	padding-top: 16px;
+	border-top: 1px solid #ddd;
 }
 
 /* Place search */
@@ -700,16 +720,18 @@ svg.leaflet-image-layer.leaflet-interactive path {
 }
 .wp-map-block-modal-place-search__input {
 	width: 100%;
-	padding: 8px 12px;
+	height: 40px;
+	padding: 0 10px;
 	border: 1px solid #949494;
 	border-radius: 4px;
+	background: #fff;
 	font-size: 13px;
 	line-height: 1.4;
 	box-sizing: border-box;
 }
-.wp-map-block-modal-place-search__input:focus {
-	border-color: #006bff;
-	box-shadow: 0 0 0 1px #006bff;
+.wp-map-block-modal .wp-map-block-modal-place-search__input:focus {
+	border-color: #000;
+	box-shadow: 0 0 0 1px #000;
 	outline: 2px solid transparent;
 }
 .wp-map-block-modal-place-search__results {
@@ -736,7 +758,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	line-height: 1.4;
 }
 .wp-map-block-modal-place-search__results li:hover {
-	background: #f0f6ff;
+	background: var(--wpmb-tint);
 }
 
 /* The place search sits directly above the map, so it owns that gap itself. */
@@ -750,6 +772,13 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .wp-map-block-modal-location-search__map {
 	position: relative;
 }
+.wp-map-block-modal-location-search__overlay {
+	position: absolute;
+	z-index: 1000;
+	top: 10px;
+	left: 54px;
+	right: 10px;
+}
 .wp-map-block-modal-location-search__map .leaflet-container {
 	border-radius: 6px;
 	z-index: 0;
@@ -761,30 +790,15 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	color: #757575;
 }
 
-/* Advanced-settings panel (right column) */
-.wp-map-block-modal-panel {
-	border: 1px solid #e0e0e0;
-	border-radius: 8px;
-	padding: 16px;
-	background: #fff;
+/* Smaller close (X) icon in the modal header. */
+.components-modal__frame.wp-map-block-modal .components-modal__header .components-button.has-icon {
+	width: 32px;
+	height: 32px;
+	min-width: 32px;
+	padding: 4px;
 }
-.wp-map-block-modal-panel__title {
-	font-size: 14px;
-	font-weight: 600;
-	margin: 0 0 14px;
-}
-/* The custom-icon controls appear inside a fragment, so they need their own
-   rhythm rather than inheriting the panel body's gap. */
-.wp-map-block-modal-panel__icon-size {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-}
-.wp-map-block-modal-panel__icon-size img {
-	display: block;
-	margin-top: 10px;
-	max-width: 100%;
-	border: 1px solid #eee;
-	border-radius: 4px;
+.components-modal__frame.wp-map-block-modal .components-modal__header .components-button.has-icon svg {
+	width: 20px;
+	height: 20px;
 }
 

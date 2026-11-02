@@ -31,6 +31,12 @@ class Data_Controller
             'methods'             => 'GET',
             'callback'            => [self::class, 'meta_keys'],
             'permission_callback' => [self::class, 'can_edit'],
+            'args'                => [
+                'postType' => [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_key',
+                ],
+            ],
         ]);
 
         // Resolve CPT/listing dynamic sources into markers for the builder preview
@@ -59,12 +65,12 @@ class Data_Controller
     protected static function sample_points(): array
     {
         return [
-            ['lat' => 40.6892, 'lng' => -74.0445, 'title' => 'Statue of Liberty', 'content' => 'Liberty Island, New York, USA', 'link' => 'https://www.nps.gov/stli/'],
-            ['lat' => 48.8584, 'lng' => 2.2945, 'title' => 'Eiffel Tower', 'content' => 'Champ de Mars, Paris, France', 'link' => 'https://www.toureiffel.paris/en'],
-            ['lat' => 51.5007, 'lng' => -0.1246, 'title' => 'Big Ben', 'content' => 'Westminster, London, UK', 'link' => 'https://www.parliament.uk/bigben'],
-            ['lat' => 35.6586, 'lng' => 139.7454, 'title' => 'Tokyo Tower', 'content' => 'Minato City, Tokyo, Japan', 'link' => 'https://www.tokyotower.co.jp/en/'],
-            ['lat' => -33.8568, 'lng' => 151.2153, 'title' => 'Sydney Opera House', 'content' => 'Bennelong Point, Sydney, Australia', 'link' => 'https://www.sydneyoperahouse.com/'],
-            ['lat' => 41.8902, 'lng' => 12.4922, 'title' => 'Colosseum', 'content' => 'Rome, Italy', 'link' => 'https://parcocolosseo.it/en/'],
+            ['lat' => 40.6892, 'lng' => -74.0445, 'title' => __('Statue of Liberty', 'wp-map-block'), 'content' => 'Liberty Island, New York, USA', 'link' => 'https://www.nps.gov/stli/'],
+            ['lat' => 48.8584, 'lng' => 2.2945, 'title' => __('Eiffel Tower', 'wp-map-block'), 'content' => 'Champ de Mars, Paris, France', 'link' => 'https://www.toureiffel.paris/en'],
+            ['lat' => 51.5007, 'lng' => -0.1246, 'title' => __('Big Ben', 'wp-map-block'), 'content' => 'Westminster, London, UK', 'link' => 'https://www.parliament.uk/bigben'],
+            ['lat' => 35.6586, 'lng' => 139.7454, 'title' => __('Tokyo Tower', 'wp-map-block'), 'content' => 'Minato City, Tokyo, Japan', 'link' => 'https://www.tokyotower.co.jp/en/'],
+            ['lat' => -33.8568, 'lng' => 151.2153, 'title' => __('Sydney Opera House', 'wp-map-block'), 'content' => 'Bennelong Point, Sydney, Australia', 'link' => 'https://www.sydneyoperahouse.com/'],
+            ['lat' => 41.8902, 'lng' => 12.4922, 'title' => __('Colosseum', 'wp-map-block'), 'content' => 'Rome, Italy', 'link' => 'https://parcocolosseo.it/en/'],
         ];
     }
 
@@ -100,6 +106,9 @@ class Data_Controller
         }
         $params  = $request->get_json_params();
         $sources = isset($params['dataSources']) && is_array($params['dataSources']) ? $params['dataSources'] : [];
+        // Same normalisation a saved map goes through, so the preview can't be
+        // used to feed the resolver values the save path would have rejected.
+        $sources = array_map([\WPMapBlock\Config::class, 'sanitize_data_source'], array_slice($sources, 0, 20));
         $resolved = \WPMapBlock\Frontend\DataSources::resolve([
             'dataSources' => $sources,
             'markers'     => [],
@@ -160,8 +169,11 @@ class Data_Controller
         if (self::dynamic_locked()) {
             return rest_ensure_response([]);
         }
-        $post_type = sanitize_key($request->get_param('postType'));
-        if (empty($post_type)) {
+        $post_type = $request->get_param('postType');
+        $post_type = is_string($post_type) ? sanitize_key($post_type) : '';
+        $type_obj  = $post_type ? get_post_type_object($post_type) : null;
+        // Only public post types: this must not reveal the data model of private ones.
+        if (!$type_obj || empty($type_obj->public)) {
             return rest_ensure_response([]);
         }
 

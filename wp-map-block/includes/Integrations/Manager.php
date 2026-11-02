@@ -121,7 +121,7 @@ class Manager
             return ['markers' => [], 'categories' => []];
         }
 
-        $limit = $limit > 0 ? (int) $limit : (int) $source['limit'];
+        $limit = min($limit > 0 ? (int) $limit : (int) $source['limit'], 1000);
 
         $query = new \WP_Query([
             'post_type'      => $source['post_type'],
@@ -161,7 +161,7 @@ class Manager
     {
         $lat = $source['lat_meta'] ? (float) get_post_meta($post->ID, $source['lat_meta'], true) : 0;
         $lng = $source['lng_meta'] ? (float) get_post_meta($post->ID, $source['lng_meta'], true) : 0;
-        if (!$lat || !$lng) {
+        if (!$lat || !$lng || post_password_required($post)) {
             return null;
         }
 
@@ -191,7 +191,7 @@ class Manager
             'lng'      => $lng,
             'title'    => get_the_title($post),
             'content'  => $thumb
-                ? '<img src="' . esc_url($thumb) . '" style="max-width:100%;border-radius:6px;margin-bottom:6px" />' . esc_html($excerpt)
+                ? '<img class="wpmb-popup-thumb" src="' . esc_url($thumb) . '" alt="" />' . esc_html($excerpt)
                 : esc_html($excerpt),
             'link'     => get_permalink($post),
             'category' => $category,

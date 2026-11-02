@@ -3,9 +3,9 @@ Contributors: tusharimran, academylms
 Donate link: https://www.buymeacoffee.com/academylms
 Tags: map block, openstreetmap, store locator, markers, maps
 Requires at least: 6.5
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.1.0
+Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,10 +30,10 @@ Backward compatible: Every existing map keeps working, and you can import/export
 
 WP Map Block gives you a clean, straightforward interface to add and customize maps for Gutenberg-supported posts, pages and custom post types — without wrestling with API keys or heavy configuration.
 
-⭐ [Live Demo](https://wpmapblock.com/demo/)
-⭐ [Docs](https://wpmapblock.com/docs/)
+[Live Demo](https://wpmapblock.com/demo/)
+[Docs](https://wpmapblock.com/docs/)
 
-= Plugin Features ✅ =
+= Plugin Features =
 * Google Maps
 * OpenStreet Maps
 * Multiple Marker
@@ -47,43 +47,43 @@ WP Map Block gives you a clean, straightforward interface to add and customize m
 * Draggable Marker
 * Don’t need any API key
 
-**🗺️Google Map:** Set the default Google Map on any page or post of your WordPress site. With a single click, you can select this map anywhere on your site using WP Map Block.
+**Google Map:** Set the default Google Map on any page or post of your WordPress site. With a single click, you can select this map anywhere on your site using WP Map Block.
 
-**🛣️OpenStreet Maps:** We’ve included this option for you so you can enable OpenStreet Maps and tweak it within your site. OpenStreet Map is an open-source map where you can contribute to improving the quality of data on the map. Every update you make to Open Street Map is owned by both you and the community as a whole.
+**OpenStreet Maps:** We’ve included this option for you so you can enable OpenStreet Maps and tweak it within your site. OpenStreet Map is an open-source map where you can contribute to improving the quality of data on the map. Every update you make to Open Street Map is owned by both you and the community as a whole.
 
-**📌Multiple Marker:** By default, a marker will appear on the map based on your location. But you can add additional markers on your map by customizing the settings. Also, set the title and content for the marker as well as set the default position of the marker.
+**Multiple Marker:** By default, a marker will appear on the map based on your location. But you can add additional markers on your map by customizing the settings. Also, set the title and content for the marker as well as set the default position of the marker.
 
-**🔎 Zoom Control:** Zoom in and out of the map with ease using the zoom option. The map works quickly since it is built using LeafletJS, and it does not take long to load the map after zooming in or out.
+**Zoom Control:** Zoom in and out of the map with ease using the zoom option. The map works quickly since it is built using LeafletJS, and it does not take long to load the map after zooming in or out.
 
-**📲Full-Screen Map Control:** Get a full-screen map view while using the map presented by this plugin. You can control the map very comfortably within the full screen and navigate the whole map freely.
+**Full-Screen Map Control:** Get a full-screen map view while using the map presented by this plugin. You can control the map very comfortably within the full screen and navigate the whole map freely.
 
-**🛠️ Custom Marker Icon & Popup:** Explore the settings and customize the marker on your map. You can place custom markers on the map and also place your preferred popups on the map.
+**Custom Marker Icon & Popup:** Explore the settings and customize the marker on your map. You can place custom markers on the map and also place your preferred popups on the map.
 
-**🎚️Map Width & Height:** You can set your preferred width and height on the map by customizing it from the settings. This option allows you to set the displayed map at a certain height and width and then place it on the front end of your site. You can set it according to your viewing preference.
+**Map Width & Height:** You can set your preferred width and height on the map by customizing it from the settings. This option allows you to set the displayed map at a certain height and width and then place it on the front end of your site. You can set it according to your viewing preference.
 
-**☸️ Latitude and Longitude Generator:** You can generate addresses from the latitude and longitude of your location. With the help of latitude and longitude, you will get a precise location and address on the map.
+**Latitude and Longitude Generator:** You can generate addresses from the latitude and longitude of your location. With the help of latitude and longitude, you will get a precise location and address on the map.
 
-**📍Set any marker as the center position:** You can set the marker in the central position on the map. If you have placed a custom marker on the map, you can set it as your default marker and set its position in the middle. This will show the marker as the main marker; it will be displayed at the center of the map.
+**Set any marker as the center position:** You can set the marker in the central position on the map. If you have placed a custom marker on the map, you can set it as your default marker and set its position in the middle. This will show the marker as the main marker; it will be displayed at the center of the map.
 
-**☄️Marker Builder:** You may be bored to see the same old marker icon on the map. WP Map Block allows you to customize the map beyond the traditional elements of the map. You can customize as well as build a new marker and place it on the map.
+**Marker Builder:** You may be bored to see the same old marker icon on the map. WP Map Block allows you to customize the map beyond the traditional elements of the map. You can customize as well as build a new marker and place it on the map.
 
-**👋 Draggable Marker:** Drag the marker in any position on the map and reveal the location swiftly. The dragging option is really smooth, and after dragging the marker, the location gets revealed instantly.
+**Draggable Marker:** Drag the marker in any position on the map and reveal the location swiftly. The dragging option is really smooth, and after dragging the marker, the location gets revealed instantly.
 
-**🔑 API key not required:** To place the map on your site. Simply select the map block and place it on any page of your site. The vast majority of Google Map plugins now available on the market need the use of API keys in order to activate the map; however, our plugin does not.
+**API key not required:** To place the map on your site. Simply select the map block and place it on any page of your site. The vast majority of Google Map plugins now available on the market need the use of API keys in order to activate the map; however, our plugin does not.
 
 
 == Installation ==
 
 Install WP Map Block for Gutenberg either via the WordPress plugin directory or by uploading the files to your server at wp-content/plugins.
 
-## 🔥 WHAT’S NEXT
+## WHAT’S NEXT
 If you like WP-Map-Block, then consider checking out our other WordPress Plugins for FREE:
 
-🔝 [Academy LMS](https://academylms.net) – Academy LMS is a modern, lightweight LMS plugin for WordPress. It helps users create and sell online courses, manage instructors, track student progress, quizzes, and more — all inside WordPress.
-🔝 [StoreEngine](https://storeengine.pro) – StoreEngine is an all-in-one, next-gen eCommerce plugin for WordPress. It’s designed to make selling digital products, courses, memberships, and even physical goods easier than ever.
+[Academy LMS](https://academylms.net) – Academy LMS is a modern, lightweight LMS plugin for WordPress. It helps users create and sell online courses, manage instructors, track student progress, quizzes, and more — all inside WordPress.
+[StoreEngine](https://storeengine.pro) – StoreEngine is an all-in-one, next-gen eCommerce plugin for WordPress. It’s designed to make selling digital products, courses, memberships, and even physical goods easier than ever.
 
 
-## 💙 Join the WP Map Block Community ##
+## Join the WP Map Block Community ##
 Get help, share your maps and hear about new features first.
 
 - Visit the [WP Map Block website](https://wpmapblock.com/)
@@ -122,7 +122,32 @@ Change the way you are writing the address or make it more specific. Make sure t
 
 == Changelog ==
 
-= 3.1.0 – 2026-10-05 =
+= 3.2.1 – 2026-11-02 =
+- Security: Maps list endpoint now only returns maps the current user can edit.
+- Security: Publish/unpublish/delete REST actions enforce per-map capability checks (CVE-2026-19798).
+
+= 3.2.0 – 2026-10-29 =
+- Security: Hardened REST endpoints, data sources and output escaping.
+- Improved: Classic map block settings and marker modal revamped, with full controls in the block sidebar.
+- Improved: Map picker and embed block redesigned.
+- Improved: Marker popups.
+- Changed: Emoji icons replaced with SVG icons across the plugin.
+- Added: Plugin data is cleaned up on uninstall (maps are kept).
+- Added: Free and Premium install side by side as separate plugins — activating one deactivates the other.
+- Added: Premium providers are shown with a Pro badge and can't be selected in the free version.
+- Improved: The builder preview now matches the front end — locked Pro features are not shown.
+- Improved: Upgrade links are tagged with UTM parameters.
+- Fixed: Popup text was invisible in the Overlay style when a marker has no image.
+- Fixed: Google Maps' error message stayed on screen after switching to another provider.
+- Fixed: Dark base map and the CARTO provider showed "API KEY REQUIRED" tiles — they now use CARTO's keyless vector styles.
+- Fixed: Stadia Maps showed a blank map without an API key — it now falls back to OpenStreetMap.
+- Fixed: New maps could start on a locked Pro provider.
+- Fixed: Opening a map that no longer exists now shows "Map not found".
+- Fixed: Maps list shows provider names (e.g. "OpenStreetMap") instead of slugs.
+- Fixed: Premium license links and the Compare page could show "not allowed".
+- Fixed: "Copy shortcode" did nothing on sites served over plain HTTP.
+
+= 3.1.0 – 2026-10-06 =
 Security and feature release.
 
 - Security: Fixed missing authorization on the map REST endpoints (CVE-2026-19798). The create, publish/unpublish, bulk and delete actions now enforce per-map capability checks (`edit_post`, `publish_post`, `delete_post`), so lower-privileged users (Contributor and above) can no longer create, publish, unpublish or delete maps they do not have the capability to manage.

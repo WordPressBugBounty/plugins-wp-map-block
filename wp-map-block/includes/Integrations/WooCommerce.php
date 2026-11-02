@@ -47,7 +47,7 @@ class WooCommerce
     {
         $lat = (float) get_post_meta($post->ID, $source['lat_meta'], true);
         $lng = (float) get_post_meta($post->ID, $source['lng_meta'], true);
-        if (!$lat || !$lng) {
+        if (!$lat || !$lng || post_password_required($post)) {
             return null;
         }
 
@@ -63,11 +63,11 @@ class WooCommerce
 
         $content = '';
         if ($thumb) {
-            $content .= '<img src="' . esc_url($thumb) . '" style="max-width:100%;border-radius:6px;margin-bottom:6px" />';
+            $content .= '<img class="wpmb-popup-thumb" src="' . esc_url($thumb) . '" alt="" />';
         }
         $content .= esc_html($excerpt);
         if ($price) {
-            $content .= '<div style="margin-top:4px;font-weight:600">' . $price . '</div>';
+            $content .= '<div class="wpmb-popup-price">' . $price . '</div>';
         }
 
         return [

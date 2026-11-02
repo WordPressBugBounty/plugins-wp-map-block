@@ -202,11 +202,12 @@ class Onboarding
             },
         ]);
 
+        // Usage-tracking consent is a site-wide decision, so it needs an admin.
         register_rest_route(WPMAPBLOCK_REST_NAMESPACE, '/onboarding/subscribe', [
             'methods'             => 'POST',
             'callback'            => [self::class, 'subscribe'],
             'permission_callback' => function () {
-                return current_user_can('edit_posts');
+                return current_user_can('manage_options');
             },
         ]);
     }
@@ -220,8 +221,9 @@ class Onboarding
     public static function subscribe($request)
     {
         $p     = $request->get_json_params();
-        $name  = isset($p['name']) ? sanitize_text_field($p['name']) : '';
-        $email = isset($p['email']) ? sanitize_email($p['email']) : '';
+        $p     = is_array($p) ? $p : [];
+        $name  = isset($p['name']) && is_string($p['name']) ? sanitize_text_field($p['name']) : '';
+        $email = isset($p['email']) && is_string($p['email']) ? sanitize_email($p['email']) : '';
         $optin = ! empty($p['optIn']);
 
         // Consent lives entirely in the SDK's insights store (allow_tracking),
@@ -236,7 +238,7 @@ class Onboarding
     /** Clear the pending-welcome flag so the screen doesn't auto-open again. */
     public static function mark_seen()
     {
-        update_option(self::OPT_WELCOME_MODE, '');
+        update_option(self::OPT_WELCOME_MODE, '', false);
         return rest_ensure_response(['ok' => true]);
     }
 

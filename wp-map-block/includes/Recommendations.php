@@ -314,11 +314,17 @@ class Recommendations
         return $out;
     }
 
+    /** Is `$id` a product in the catalog? Keeps client-supplied ids from being stored verbatim. */
+    private static function is_known($id)
+    {
+        return in_array($id, wp_list_pluck(self::catalog(), 'id'), true);
+    }
+
     public static function dismiss($id)
     {
         $id = sanitize_key($id);
         $dismissed = self::dismissed();
-        if (!in_array($id, $dismissed, true)) {
+        if (self::is_known($id) && !in_array($id, $dismissed, true)) {
             $dismissed[] = $id;
             update_user_meta(get_current_user_id(), self::DISMISSED_META, $dismissed);
         }
@@ -333,9 +339,15 @@ class Recommendations
     public static function track($id, $placement, $event, $variant)
     {
         $id        = sanitize_key($id);
-        $placement = sanitize_key($placement);
-        $event     = $event === 'click' ? 'click' : 'impression';
-        $variant   = (int) $variant;
+        $placement = substr(sanitize_key($placement), 0, 32);
+        $event     = 'click' === $event ? 'click' : 'impression';
+        $variant   = max(0, min(9, (int) $variant));
+
+        // Ids come from the browser; ignore anything that isn't a catalog product
+        // so the stats option can't be grown with arbitrary keys.
+        if (!self::is_known($id)) {
+            return false;
+        }
 
         $stats = get_option(self::STATS_OPTION, []);
         if (!is_array($stats)) {

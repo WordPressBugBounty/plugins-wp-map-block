@@ -228,13 +228,16 @@ class Block
 
     private static function escaping_array_data($array)
     {
+        if (!is_array($array)) {
+            return [];
+        }
         foreach ($array as $key => &$value) {
             if (is_array($value)) {
                 $value = self::escaping_array_data($value);
             } elseif ('content' === $key) {
-                $value = self::escape_marker_content($value);
+                $value = is_scalar($value) ? self::escape_marker_content((string) $value) : '';
             } else {
-                $value = esc_attr(sanitize_text_field($value));
+                $value = is_scalar($value) ? esc_attr(sanitize_text_field((string) $value)) : '';
             }
         }
         return $array;
@@ -266,24 +269,25 @@ class Block
 
         $settings = [
             'map_marker'        => self::escaping_array_data(isset($attributes['map_marker_list']) ? $attributes['map_marker_list'] : []),
-            'map_zoom'          => (isset($attributes['map_zoom']) ? esc_attr($attributes['map_zoom']) : 10),
-            'scroll_wheel_zoom' => (isset($attributes['scroll_wheel_zoom']) ? esc_attr($attributes['scroll_wheel_zoom']) : false),
-            'map_type'          => (isset($attributes['map_type']) ? esc_attr($attributes['map_type']) : 'GM'),
-            'center_index'      => (isset($attributes['center_index']) ? intval(esc_attr($attributes['center_index'])) : 0),
+            'map_zoom'          => (isset($attributes['map_zoom']) ? max(0, min(24, (int) $attributes['map_zoom'])) : 10),
+            'scroll_wheel_zoom' => (isset($attributes['scroll_wheel_zoom']) ? filter_var($attributes['scroll_wheel_zoom'], FILTER_VALIDATE_BOOLEAN) : false),
+            'map_type'          => (isset($attributes['map_type']) && 'OSM' === $attributes['map_type'] ? 'OSM' : 'GM'),
+            'center_index'      => (isset($attributes['center_index']) ? max(0, (int) $attributes['center_index']) : 0),
         ];
 
-        $map_width  = (isset($attributes['map_width']) ? esc_attr($attributes['map_width']) . '%' : '100%');
-        $map_height = (isset($attributes['map_height']) ? esc_attr($attributes['map_height']) . 'px' : '500px');
+        // Block attributes come from post content, so force them to numbers
+        // before they reach the inline style.
+        $map_width  = (isset($attributes['map_width']) ? max(1, min(100, (int) $attributes['map_width'])) : 100) . '%';
+        $map_height = (isset($attributes['map_height']) ? max(50, min(5000, (int) $attributes['map_height'])) : 500) . 'px';
         $style      = "width: {$map_width}; height: {$map_height};";
 
-        ob_start(); ?>
-        <div
-            id="<?php echo (isset($attributes['map_id']) ? esc_attr($attributes['map_id']) : ''); ?>"
-            data-settings='<?php echo esc_attr(wp_json_encode($settings, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)); ?>'
-            class="wpmapblockrender"
-            style="<?php echo esc_attr($style); ?>">
-        </div>
-        <?php
-        return ob_get_clean();
+        $map_id = isset($attributes['map_id']) && is_scalar($attributes['map_id']) ? $attributes['map_id'] : '';
+
+        return sprintf(
+            '<div id="%1$s" data-settings="%2$s" class="wpmapblockrender" style="%3$s"></div>',
+            esc_attr($map_id),
+            esc_attr(wp_json_encode($settings, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)),
+            esc_attr($style)
+        );
     }
 }

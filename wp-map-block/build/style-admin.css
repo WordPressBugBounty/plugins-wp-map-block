@@ -574,6 +574,9 @@ html[data-theme='dark'] #wpmb-admin-root,
 #wpmb-admin-root .max-w-lg {
 	max-width: 32rem;
 }
+#wpmb-admin-root .max-w-md {
+	max-width: 28rem;
+}
 #wpmb-admin-root .max-w-sm {
 	max-width: 24rem;
 }
@@ -1127,10 +1130,6 @@ html[data-theme='dark'] #wpmb-admin-root,
 #wpmb-admin-root .text-4xl {
 	font-size: 2.25rem;
 	line-height: 2.5rem;
-}
-#wpmb-admin-root .text-5xl {
-	font-size: 3rem;
-	line-height: 1;
 }
 #wpmb-admin-root .text-\[11px\] {
 	font-size: 11px;
